@@ -4,27 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sina Forouzanfar — Mechatronics & Biomedical Engineer</title>
-  <meta name="description" content="Sina Forouzanfar — Third-year Mechatronics & Biomedical Engineering student at McMaster. Embedded systems, robotics, and product engineering.">
+  <meta name="description" content="Sina Forouzanfar — Mechatronics & Biomedical Engineering at McMaster. Embedded systems, robotics, and product engineering.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-projects-page="home">
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
 
   <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="#top">
+      <a class="brand" href="index.html#top">
         <span class="brand-mark">SF</span>
       </a>
       <nav aria-label="Primary">
         <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
       <a class="btn-resume" href="Sina_Forouzanfar_Resume.pdf" target="_blank" rel="noopener">
@@ -36,33 +36,31 @@
 
   <main id="top">
 
-    <!-- ==================== HERO ==================== -->
-    <section class="hero">
+    <section class="hero" id="intro">
       <div class="container hero-grid">
         <div class="hero-text">
-          <p class="badge">
-            <span class="pulse"></span>
-            Available — Summer 2026 Internships
-          </p>
-
           <h1 class="hero-title">
-            Hi, I'm <em>Sina</em>. I build at the edge of
-            <span class="hl">hardware</span> &amp;
-            <span class="hl hl-2">software</span>.
+            <span class="hero-greet">Hi, I'm <em>Sina</em>.</span>
           </h1>
 
-          <p class="hero-lede">
-            Mechatronics and embedded-focused engineer — I care about motion, sensing,
-            and closed-loop behavior. Right now that means product work at <strong>Data Stealth</strong>
-            and firmware for the <strong>MacBionic Arm</strong>.
-          </p>
+          <div class="hero-prose">
+            <p>
+              I'm a Mechatronics &amp; Biomedical Engineering student at McMaster. If a system involves
+              making physical things move, think, or talk to each other, you can probably find me there.
+            </p>
+          </div>
 
           <div class="hero-actions">
-            <a class="btn primary" href="#work">
-              See my work
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-            <a class="btn ghost" href="mailto:sinafz2005@gmail.com">Get in touch</a>
+            <div class="hero-actions-row">
+              <a class="btn primary" href="#work">
+                See my work
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+              <a class="btn ghost" href="experience.html">My experience</a>
+            </div>
+            <div class="hero-actions-row hero-actions-row--secondary">
+              <a class="btn ghost btn-full" href="#contact">Contact</a>
+            </div>
           </div>
         </div>
 
@@ -74,87 +72,12 @@
         </div>
       </div>
 
-      <a href="#stats" class="scroll-cue" aria-label="Scroll down">
+      <a href="#work" class="scroll-cue" aria-label="Scroll to work">
         <span>Scroll</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
       </a>
     </section>
 
-    <!-- ==================== STATS ==================== -->
-    <section id="stats" class="stats">
-      <div class="container stats-grid">
-        <div class="stat">
-          <div class="stat-num" data-count="3.94" data-decimals="2">0</div>
-          <div class="stat-label">Cumulative GPA</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num"><span data-count="30">0</span><span class="plus">+</span></div>
-          <div class="stat-label">Students in IEEE workshops</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num"><span data-count="500">0</span><span class="plus">+</span></div>
-          <div class="stat-label">HackMe competition field</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" data-count="4">0</div>
-          <div class="stat-label">Featured projects</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== ABOUT ==================== -->
-    <section id="about" class="section">
-      <div class="container">
-        <div class="about-split">
-          <div class="about-copy">
-            <p class="section-eyebrow">01 — About</p>
-            <h2 class="big-headline">
-              I build things that <em>move</em>,
-              <em>sense</em>, and <em>respond</em>.
-            </h2>
-            <div class="about-text">
-              <p>
-                I'm in my third year of Mechatronics &amp; Biomedical Engineering at
-                <strong>McMaster</strong> — the mix of mechanical, electrical, and software
-                is what pulled me in, and embedded work is where I spend most of my time.
-              </p>
-              <p>
-                Lately that's meant STM32 firmware, sensors and UART, control loops, and
-                shipping real product code — not just demos.
-              </p>
-              <p>
-                I also co-chair our IEEE Student Branch and run hands-on workshops
-                (CAD, Raspberry Pi, signal processing) for students who want to build, not only study.
-              </p>
-            </div>
-          </div>
-          <aside class="about-viz" aria-hidden="true">
-            <div class="sense-viz">
-              <canvas id="senseCanvas"></canvas>
-              <div class="sense-corner top-left">
-                <span class="dot dot-move"></span>
-                <span class="label">MOVE</span>
-              </div>
-              <div class="sense-corner top-right">
-                <span class="dot dot-sense"></span>
-                <span class="label">SENSE</span>
-              </div>
-              <div class="sense-corner bottom-left">
-                <span class="dot dot-respond"></span>
-                <span class="label">RESPOND</span>
-              </div>
-              <div class="sense-legend">
-                <span><i class="lg lg-move"></i> Motion &amp; actuation</span>
-                <span><i class="lg lg-sense"></i> Sensing &amp; signal</span>
-                <span><i class="lg lg-respond"></i> Control &amp; feedback</span>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== MARQUEE ==================== -->
     <section class="marquee" aria-hidden="true">
       <div class="marquee-track">
         <div class="marquee-row">
@@ -190,90 +113,23 @@
       </div>
     </section>
 
-    <!-- ==================== WORK / PROJECTS ==================== -->
     <section id="work" class="section">
       <div class="container">
-        <p class="section-eyebrow">02 — Selected Work</p>
+        <p class="section-eyebrow">01 — Selected Work</p>
         <h2 class="section-title">Recent work.</h2>
-        <p class="section-sub">Click any card to open a full case study with the problem, approach, and outcome.</p>
+        <p class="section-sub">Click a card for the full case study. More projects on the archive page.</p>
 
-        <div class="work-list" id="workList">
-          <!-- populated by JS -->
-        </div>
+        <div class="work-list" id="workList"></div>
+
+        <p class="work-more-wrap">
+          <a class="work-more-link" href="work.html">See more projects →</a>
+        </p>
       </div>
     </section>
 
-    <!-- ==================== EXPERIENCE ==================== -->
-    <section id="experience" class="section experience">
-      <div class="container">
-        <p class="section-eyebrow">03 — Experience</p>
-        <h2 class="section-title">Where I've worked.</h2>
-
-        <div class="xp-grid">
-          <div class="xp-sticky">
-            <p class="mono small muted">A short timeline across product engineering, embedded systems, and student leadership.</p>
-          </div>
-
-          <div class="xp-list">
-            <article class="xp-item">
-              <div class="xp-head">
-                <span class="xp-tag now">Current</span>
-                <span class="xp-date">Sep 2025 — Present</span>
-              </div>
-              <h3>Product Engineer <span class="xp-co">· Data Stealth</span></h3>
-              <p class="xp-loc">Mississauga, ON</p>
-              <ul>
-                <li>Retained part-time (15 hrs/week) during academic term to architect a new product using format-preserving encryption.</li>
-                <li>Optimizing system logic to maximize data utility while reducing latency in high-throughput streams.</li>
-              </ul>
-            </article>
-
-            <article class="xp-item">
-              <div class="xp-head">
-                <span class="xp-date">Jun 2025 — Aug 2025</span>
-              </div>
-              <h3>Software Engineering Intern <span class="xp-co">· Data Stealth</span></h3>
-              <p class="xp-loc">Mississauga, ON</p>
-              <ul>
-                <li>Built the production website and interactive demos showcasing enterprise data masking and tokenization workflows.</li>
-                <li>Contributed to backend system design by defining data flow and component interactions across the product pipeline.</li>
-              </ul>
-            </article>
-
-            <article class="xp-item">
-              <div class="xp-head">
-                <span class="xp-tag now">Current</span>
-                <span class="xp-date">Jun 2024 — Present</span>
-              </div>
-              <h3>Student Branch Co-Chair <span class="xp-co">· IEEE McMaster</span></h3>
-              <p class="xp-loc">Hamilton, ON</p>
-              <ul>
-                <li>Overseeing operations of technical sub-chapters, coordinating team leads, and managing branch resources.</li>
-                <li>Organizing and instructing technical workshops on CAD, Raspberry Pi, and signal processing for 30+ students.</li>
-              </ul>
-            </article>
-
-            <article class="xp-item">
-              <div class="xp-head">
-                <span class="xp-date">May 2024 — Dec 2024</span>
-              </div>
-              <h3>Electrical Engineering Lead <span class="xp-co">· Arche Biotechnologies</span></h3>
-              <p class="xp-loc">Hamilton, ON</p>
-              <ul>
-                <li>Designed system schematics in KiCad and built preliminary hardware prototypes for a biomedical monitoring device.</li>
-                <li>Interfaced Arduino Nano with AS72651 sensors and WC1602A LCDs for real-time data acquisition.</li>
-                <li>Verified UART communication protocols and validated transmission accuracy using oscilloscopes.</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== SKILLS ==================== -->
     <section id="skills" class="section">
       <div class="container">
-        <p class="section-eyebrow">04 — Toolkit</p>
+        <p class="section-eyebrow">02 — Toolkit</p>
         <h2 class="section-title">Tools I work with.</h2>
 
         <div class="skills-grid">
@@ -305,15 +161,14 @@
       </div>
     </section>
 
-    <!-- ==================== CONTACT ==================== -->
     <section id="contact" class="section contact">
       <div class="container contact-inner">
-        <p class="section-eyebrow center">05 — Contact</p>
+        <p class="section-eyebrow center">03 — Contact</p>
         <h2 class="contact-title">
           Let's <em>build</em> something.
         </h2>
         <p class="contact-copy">
-          I'm open to Summer 2026 internships in embedded systems, robotics, and product engineering.
+          I'm open to internships and roles in embedded systems, robotics, and product engineering.
           Email is the fastest way to reach me.
         </p>
         <a class="btn primary big" href="mailto:sinafz2005@gmail.com">
@@ -336,7 +191,6 @@
     </div>
   </footer>
 
-  <!-- ==================== PROJECT MODAL ==================== -->
   <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
     <div class="modal-backdrop" data-close></div>
     <div class="modal-panel" role="document">

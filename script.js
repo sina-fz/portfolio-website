@@ -1,15 +1,15 @@
 // =====================================================
 // PROJECT DATA — with custom SVG illustrations
 // =====================================================
-const projects = [
+const PROJECTS_ALL = [
   {
     id: "macbionic",
     title: "MacBionic Arm",
     tagline: "Embedded Lead · IEEE McMaster",
     period: "Sep 2025 — Present",
     summary: "Robotic arm with precise PID-controlled motion and a computer-vision pipeline that detects targets and executes grasp sequences.",
-    artBg: "#DBEAFE",
-    artFg: "#2563EB",
+    artBg: "#ECECEC",
+    artFg: "#111111",
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="240" cy="60" r="22" stroke-dasharray="3 6" opacity="0.7"/>
@@ -42,8 +42,8 @@ const projects = [
     tagline: "1st Place · McMaster Engineering Competition",
     period: "Nov 2024",
     summary: "B2B vulnerability scanning tool that won 1st place out of 500+ engineering students and earned a provincial OEC selection.",
-    artBg: "#D1FAE5",
-    artFg: "#10B981",
+    artBg: "#E8E8E8",
+    artFg: "#111111",
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
         <path d="M160 30 L70 60 V130 C70 175 105 205 160 218 C215 205 250 175 250 130 V60 Z" fill="white"/>
@@ -74,8 +74,8 @@ const projects = [
     tagline: "Safety-Critical Embedded · 3K04",
     period: "Oct 2024 — Dec 2024",
     summary: "Pacing firmware on STM32 with Simulink-modeled state machines and a Python device communicator for live configuration.",
-    artBg: "#DBEAFE",
-    artFg: "#2563EB",
+    artBg: "#ECECEC",
+    artFg: "#111111",
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
         <path d="M0 130 L70 130 L85 130 L100 90 L115 170 L130 60 L145 180 L160 130 L320 130" />
@@ -100,8 +100,8 @@ const projects = [
     tagline: "Electrical Lead · Arche Biotechnologies",
     period: "May 2024 — Dec 2024",
     summary: "Electrical design and prototyping of a biomedical monitoring device with sensor fusion and validated UART data integrity.",
-    artBg: "#D1FAE5",
-    artFg: "#10B981",
+    artBg: "#E8E8E8",
+    artFg: "#111111",
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
         <rect x="60" y="60" width="200" height="120" rx="8" fill="white"/>
@@ -121,14 +121,75 @@ const projects = [
       "Established validated communication and acquisition pipelines for downstream development."
     ],
     links: []
+  },
+  {
+    id: "sumo",
+    title: "Autonomous Sumo Robot",
+    tagline: "Competition Robotics",
+    period: "2024",
+    summary: "Compact competition robot with sensing, motor control, and match strategy. Built with a team; placed 3rd in the sumo-style bracket.",
+    artBg: "#ECECEC",
+    artFg: "#111111",
+    art: `
+      <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="160" cy="130" r="72" fill="white"/>
+        <circle cx="160" cy="130" r="52" opacity="0.15" fill="currentColor"/>
+        <path d="M118 130h84M160 88v84"/>
+        <circle cx="130" cy="110" r="8" fill="currentColor"/>
+        <circle cx="190" cy="110" r="8" fill="currentColor"/>
+      </svg>`,
+    tags: ["Embedded C/C++", "Sensors", "Motor Control", "Competition"],
+    problem: "Design a small autonomous robot that could detect the opponent, stay in bounds, and win sumo-style matches under tight size and weight rules.",
+    approach: [
+      "Iterated on chassis, drive, and sensor placement with the team for stability and traction.",
+      "Implemented control and state logic for search, attack, and edge-avoidance behavior.",
+      "Tuned timing and thresholds through test matches before competition day."
+    ],
+    impact: [
+      "Earned 3rd place in the bracket against strong teams.",
+      "Delivered a reliable platform we could debug quickly between rounds."
+    ],
+    links: [{ label: "GitHub", url: "https://github.com/sina-fz" }]
+  },
+  {
+    id: "tetris",
+    title: "Tetris on LED Matrix",
+    tagline: "Arduino · Game Logic",
+    period: "2023",
+    summary: "Full Tetris implementation on Arduino with an LED matrix: input handling, piece rotation, line clears, and scoring in constrained memory.",
+    artBg: "#E8E8E8",
+    artFg: "#111111",
+    art: `
+      <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="90" y="40" width="140" height="170" rx="4" fill="white"/>
+        <path d="M110 60h40v40h-40z M150 60h40v40h-40z M110 100h40v40h-40z" opacity="0.35" fill="currentColor"/>
+        <circle cx="250" cy="200" r="6" fill="currentColor"/>
+      </svg>`,
+    tags: ["Arduino", "C/C++", "LED Matrix", "Embedded"],
+    problem: "Implement a playable Tetris clone on minimal hardware with responsive controls and stable frame timing.",
+    approach: [
+      "Structured game state (grid, active piece, next piece) for predictable updates each tick.",
+      "Handled button debouncing and rotation collision checks without blocking the render loop.",
+      "Optimized redraws for the matrix so gameplay stayed smooth."
+    ],
+    impact: [
+      "Shipped a fully playable game demo on real hardware.",
+      "Practice in timing-critical firmware without an OS."
+    ],
+    links: [{ label: "GitHub", url: "https://github.com/sina-fz" }]
   }
 ];
 
-// =====================================================
-// RENDER PROJECT CARDS (alternating layout)
-// =====================================================
-const list = document.getElementById("workList");
-if (list) {
+function projectsToRender() {
+  const mode = document.body.dataset.projectsPage || "home";
+  if (mode === "all") return PROJECTS_ALL;
+  return PROJECTS_ALL.slice(0, 4);
+}
+
+function renderWorkList() {
+  const list = document.getElementById("workList");
+  if (!list) return;
+  const projects = projectsToRender();
   list.innerHTML = projects.map((p, i) => `
     <button class="work-card ${i % 2 === 1 ? "flip" : ""} reveal"
             data-id="${p.id}"
@@ -155,6 +216,8 @@ if (list) {
   `).join("");
 }
 
+renderWorkList();
+
 // =====================================================
 // MODAL
 // =====================================================
@@ -163,8 +226,8 @@ const modalContent = document.getElementById("modalContent");
 let lastFocused = null;
 
 function openProject(id) {
-  const p = projects.find(x => x.id === id);
-  if (!p) return;
+  const p = PROJECTS_ALL.find(x => x.id === id);
+  if (!p || !modal || !modalContent) return;
 
   modalContent.innerHTML = `
     <div class="modal-art" style="--art-bg:${p.artBg}; --art-fg:${p.artFg}">
@@ -204,12 +267,15 @@ function openProject(id) {
   `;
 
   lastFocused = document.activeElement;
+  if (!modal) return;
   modal.hidden = false;
   document.body.style.overflow = "hidden";
-  modal.querySelector(".modal-close").focus();
+  const closeBtn = modal.querySelector(".modal-close");
+  if (closeBtn) closeBtn.focus();
 }
 
 function closeProject() {
+  if (!modal) return;
   modal.hidden = true;
   document.body.style.overflow = "";
   if (lastFocused) lastFocused.focus();
@@ -222,7 +288,7 @@ document.addEventListener("click", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && !modal.hidden) closeProject();
+  if (modal && e.key === "Escape" && !modal.hidden) closeProject();
 });
 
 // =====================================================
@@ -247,7 +313,7 @@ if (window.matchMedia("(min-width: 901px)").matches && dot && ring) {
   }
   loop();
 
-  const hoverables = "a, button, .work-card, .skill-cat, .qcard, [data-close]";
+  const hoverables = "a, button, .work-card, .skill-cat, [data-close]";
   document.addEventListener("mouseover", (e) => {
     if (e.target.closest(hoverables)) ring.classList.add("hover");
   });
@@ -271,7 +337,7 @@ onScroll();
 // REVEAL ON SCROLL
 // =====================================================
 const revealTargets = document.querySelectorAll(
-  ".section, .work-card, .qcard, .skill-cat, .xp-item"
+  ".section, .work-card, .skill-cat, .xp-item"
 );
 revealTargets.forEach(el => el.classList.add("reveal"));
 
@@ -285,164 +351,6 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
 
 revealTargets.forEach(el => io.observe(el));
-
-// =====================================================
-// ANIMATED STAT COUNTERS
-// =====================================================
-const counters = document.querySelectorAll("[data-count]");
-const counterIO = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const el = entry.target;
-    const target = parseFloat(el.dataset.count);
-    const decimals = parseInt(el.dataset.decimals || "0", 10);
-    const duration = 1400;
-    const start = performance.now();
-
-    function tick(now) {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      const value = target * eased;
-      el.textContent = decimals ? value.toFixed(decimals) : Math.round(value).toString();
-      if (t < 1) requestAnimationFrame(tick);
-      else el.textContent = decimals ? target.toFixed(decimals) : target.toString();
-    }
-    requestAnimationFrame(tick);
-    counterIO.unobserve(el);
-  });
-}, { threshold: 0.5 });
-
-counters.forEach(c => counterIO.observe(c));
-
-// =====================================================
-// SENSE — sensor mesh particle network
-// =====================================================
-(function senseMesh() {
-  const canvas = document.getElementById("senseCanvas");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  let particles = [];
-  let width = 0, height = 0, dpr = 1;
-  let raf = null, running = false;
-
-  const COLORS = ["#2563EB", "#10B981", "#0d9488"]; // move, sense, respond (mechatronics loop)
-  const LINE_COLOR = "11, 18, 32"; // ink rgb
-  const LINK_DIST = 130;
-
-  function resize() {
-    const rect = canvas.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
-    width = rect.width;
-    height = rect.height;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(dpr, dpr);
-    initParticles();
-  }
-
-  function initParticles() {
-    const density = Math.max(28, Math.min(64, Math.floor((width * height) / 11000)));
-    particles = [];
-    for (let i = 0; i < density; i++) {
-      const ch = i % 3;
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.6 + 1.6,
-        color: COLORS[ch],
-        channel: ch,
-        pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: 0.018 + Math.random() * 0.02,
-      });
-    }
-  }
-
-  function step() {
-    ctx.clearRect(0, 0, width, height);
-
-    // links
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const a = particles[i], b = particles[j];
-        const dx = a.x - b.x, dy = a.y - b.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < LINK_DIST) {
-          const alpha = (1 - dist / LINK_DIST) * 0.22;
-          ctx.strokeStyle = `rgba(${LINE_COLOR}, ${alpha})`;
-          ctx.lineWidth = 0.6;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    // particles
-    for (const p of particles) {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.pulse += p.pulseSpeed;
-      if (p.x < -10) p.x = width + 10;
-      else if (p.x > width + 10) p.x = -10;
-      if (p.y < -10) p.y = height + 10;
-      else if (p.y > height + 10) p.y = -10;
-
-      const sizeMod = 1 + Math.sin(p.pulse) * 0.35;
-      const r = p.r * sizeMod;
-
-      // halo
-      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 5);
-      grad.addColorStop(0, p.color + "55");
-      grad.addColorStop(1, p.color + "00");
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r * 5, 0, Math.PI * 2);
-      ctx.fill();
-
-      // core
-      ctx.fillStyle = p.color;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    raf = requestAnimationFrame(step);
-  }
-
-  function start() {
-    if (running || reduceMotion) return;
-    running = true;
-    raf = requestAnimationFrame(step);
-  }
-  function stop() {
-    running = false;
-    if (raf) cancelAnimationFrame(raf);
-  }
-
-  // Run only when in viewport
-  const sectionObs = new IntersectionObserver((entries) => {
-    entries.forEach((e) => (e.isIntersecting ? start() : stop()));
-  }, { threshold: 0.05 });
-  sectionObs.observe(canvas);
-
-  window.addEventListener("resize", () => {
-    resize();
-  });
-
-  resize();
-  if (reduceMotion) {
-    // draw a single static frame so the section isn't empty
-    step();
-    cancelAnimationFrame(raf);
-  }
-})();
 
 // =====================================================
 // YEAR
