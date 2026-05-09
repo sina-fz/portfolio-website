@@ -49,10 +49,62 @@ body {
   position: relative;
   overflow-x: hidden;
   min-height: 100vh;
+  isolation: isolate;
   background-image:
     radial-gradient(circle at 12% 18%, rgba(0, 0, 0, 0.03), transparent 45%),
     radial-gradient(circle at 88% 8%, rgba(0, 0, 0, 0.025), transparent 50%);
 }
+
+/* ======================================
+   INK WASH ON PAPER (subtle animated theme)
+====================================== */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* paper grain */
+body::before {
+  opacity: 0.55;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(0, 0, 0, 0.02), transparent 55%),
+    radial-gradient(circle at 82% 12%, rgba(0, 0, 0, 0.016), transparent 60%),
+    repeating-linear-gradient(
+      115deg,
+      rgba(0, 0, 0, 0.012) 0px,
+      rgba(0, 0, 0, 0.012) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  mix-blend-mode: multiply;
+}
+
+/* animated ink wash */
+body::after {
+  opacity: 0.14;
+  background:
+    radial-gradient(1400px 820px at 12% 26%, rgba(0, 0, 0, 0.16), transparent 58%),
+    radial-gradient(1100px 720px at 78% 18%, rgba(0, 0, 0, 0.12), transparent 60%),
+    radial-gradient(900px 640px at 62% 76%, rgba(0, 0, 0, 0.10), transparent 62%),
+    radial-gradient(700px 520px at 28% 78%, rgba(0, 0, 0, 0.08), transparent 64%);
+  filter: blur(10px);
+  transform: translate3d(0, 0, 0);
+  animation: inkWashDrift 18s var(--ease) infinite alternate;
+  mix-blend-mode: multiply;
+}
+
+@keyframes inkWashDrift {
+  0%   { transform: translate3d(-1.5%, -1%, 0) scale(1.02) rotate(-0.6deg); }
+  50%  { transform: translate3d(1.2%, 0.6%, 0) scale(1.04) rotate(0.35deg); }
+  100% { transform: translate3d(2.3%, -0.4%, 0) scale(1.06) rotate(0.8deg); }
+}
+
+/* keep content above the wash */
+body > * { position: relative; z-index: 1; }
 
 /* Custom cursor */
 .cursor-dot, .cursor-ring {
@@ -150,17 +202,17 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(17, 17, 17, 0.84);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
   transition: border-color 0.25s var(--ease), background 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 
 .site-header.scrolled {
-  background: rgba(255, 255, 255, 0.97);
-  border-bottom-color: #ccc;
-  box-shadow: 0 8px 28px -16px rgba(0, 0, 0, 0.06);
+  background: rgba(17, 17, 17, 0.92);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 34px -22px rgba(0, 0, 0, 0.32);
 }
 
 .nav {
@@ -181,9 +233,9 @@ body {
   display: grid;
   place-items: center;
   width: 38px; height: 38px;
-  background: var(--paper);
-  color: var(--ink);
-  border: 2px solid var(--ink);
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.82);
   border-radius: 10px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
@@ -193,8 +245,8 @@ body {
 }
 
 .brand:hover .brand-mark {
-  background: var(--ink);
-  color: var(--paper);
+  background: #fff;
+  color: #000;
   transform: rotate(-4deg);
   box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.2);
 }
@@ -208,7 +260,7 @@ body {
 }
 
 .nav-links a {
-  color: var(--ink);
+  color: rgba(255, 255, 255, 0.88);
   text-decoration: none;
   font-size: 0.93rem;
   font-weight: 500;
@@ -223,11 +275,11 @@ body {
   bottom: -6px;
   width: 0;
   height: 2px;
-  background: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
   transition: width 0.3s var(--ease);
 }
 
-.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover { color: #fff; }
 .nav-links a:hover::after { width: 100%; }
 
 .btn-resume {
@@ -236,8 +288,8 @@ body {
   gap: 0.4rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
-  color: var(--ink);
-  border: 1.5px solid var(--ink);
+  color: rgba(255, 255, 255, 0.88);
+  border: 1.5px solid rgba(255, 255, 255, 0.62);
   border-radius: 999px;
   padding: 0.55rem 1rem;
   text-decoration: none;
@@ -246,9 +298,9 @@ body {
 }
 
 .btn-resume:hover {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
+  background: #fff;
+  color: #000;
+  border-color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.2);
 }
@@ -319,7 +371,7 @@ body {
   align-items: flex-start;
   justify-content: center;
   gap: clamp(2rem, 3.2vw, 3.5rem);
-  max-width: min(78rem, 94%);
+  max-width: min(72rem, 92%);
   width: 100%;
   margin: 0 auto;
 }
@@ -327,7 +379,7 @@ body {
 .hero-text {
   flex: 1 1 0;
   min-width: min(100%, 18rem);
-  max-width: 48rem;
+  max-width: 44rem;
   padding-top: 0;
 }
 
@@ -343,7 +395,7 @@ body {
 .hero-portrait .portrait-frame {
   width: 100%;
   max-width: min(380px, 100%);
-  margin-left: clamp(1.6rem, 4vw, 2.6rem);
+  margin-left: clamp(1.25rem, 3.2vw, 2.2rem);
 }
 
 .badge {
@@ -386,12 +438,12 @@ body {
 .hero-tagline {
   font-family: 'Fraunces', serif;
   font-weight: 500;
-  font-size: clamp(1.38rem, 2.55vw, 1.92rem);
+  font-size: clamp(1.45rem, 2.85vw, 2.05rem);
   line-height: 1.3;
   letter-spacing: -0.02em;
   color: var(--ink-soft);
   margin: 0 0 2rem;
-  max-width: 58ch;
+  max-width: 50ch;
 }
 
 .hero-focus {
@@ -1552,4 +1604,5 @@ body {
   .hero-actions .btn:hover {
     transform: none;
   }
+  body::after { animation: none !important; }
 }
