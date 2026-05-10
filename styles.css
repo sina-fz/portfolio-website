@@ -1376,24 +1376,6 @@ body > * { position: relative; z-index: 1; }
 .socials a:hover { color: var(--coral); }
 
 /* ======================================
-   FOOTER
-====================================== */
-.site-footer {
-  padding: 1.6rem 0;
-  border-top: 1px solid var(--line);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  color: var(--muted);
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-/* ======================================
    MODAL
 ====================================== */
 .modal {
@@ -1814,7 +1796,6 @@ body.gallery-lightbox-open {
   .btn { width: 100%; justify-content: center; }
   .hero-actions .btn { justify-content: center; text-align: center; }
   .stat { padding-left: 1rem; }
-  .footer-inner { justify-content: center; text-align: center; }
 }
 
 /* Reduced motion */
