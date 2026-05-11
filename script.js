@@ -705,4 +705,3 @@ if (workFilters) {
     observeWorkCards();
   });
 }
-
