@@ -74,7 +74,7 @@ const PROJECTS_ALL = [
       "Migrated firmware architecture from Arduino to STM32 to access higher-resolution timers and better real-time guarantees.",
       "Designed and tuned PID control loops for joint actuation, eliminating gripper overshoot.",
       "Built a computer-vision pipeline to detect targets, project them into the arm coordinate frame, and trigger detect-and-grasp sequences.",
-      "Lead a team of 5 across firmware, mechanical, and vision subsystems."
+      "Led a team of 5 across firmware, mechanical, and vision subsystems."
     ],
     impact: [
       "Significantly improved motion precision and repeatability over the Arduino baseline.",
@@ -318,6 +318,64 @@ const PROJECTS_ALL = [
     ],
     links: [{ label: "GitHub", url: "https://github.com/sina-fz" }],
     categories: ["embedded", "mechanical"]
+  },
+  {
+    id: "signal-processing",
+    title: "EEG Signal Processing Workshop",
+    tagline: "Workshop Design · IEEE McMaster",
+    period: "2025",
+    summary: "Python workshop built around real EEG brain data: filtering into frequency bands, plotting raw versus filtered signals, and rendering topographic brain maps with MNE-Python.",
+    artBg: "#ECECEC",
+    artFg: "#111111",
+    coverImage: "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 134312.png",
+    gallery: [
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-14 234408.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 102222.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 122326.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 122819.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 123430.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 123516.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 124149.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 134312.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 134337.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 134657.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 134714.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 134741.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 135239.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 140214.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 141005.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 142749.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 153841.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-15 153852.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-16 213430.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-17 121315.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-17 121326.png",
+      "Progects_Imgs/Signal Processing/Screenshot 2025-05-17 121335.png"
+    ],
+    art: `
+      <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 55 H70 L78 38 L84 72 L90 25 L96 82 L102 55 H160" />
+        <path d="M20 95 H68 L75 80 L81 110 L87 68 L93 118 L99 95 H160" opacity="0.65"/>
+        <path d="M20 135 H66 L72 122 L78 148 L84 112 L90 155 L96 135 H160" opacity="0.4"/>
+        <ellipse cx="240" cy="115" rx="52" ry="58" fill="white"/>
+        <ellipse cx="240" cy="110" rx="32" ry="35" opacity="0.12" fill="currentColor" stroke="none"/>
+        <ellipse cx="240" cy="110" rx="18" ry="20" opacity="0.2" fill="currentColor" stroke="none"/>
+        <circle cx="240" cy="110" r="7" fill="currentColor" opacity="0.3" stroke="none"/>
+      </svg>`,
+    tags: ["Python", "MNE-Python", "NumPy", "SciPy", "Signal Processing", "EEG"],
+    problem: "Signal processing theory is abstract when taught with textbook examples. Using real EEG data makes the filtering decisions tangible — students can see exactly how their choices change actual brain signals.",
+    approach: [
+      "Sourced a real EEG dataset and built Python notebooks guiding students through preprocessing, filtering, and frequency-band extraction.",
+      "Covered each canonical band — delta, theta, alpha, beta, gamma — with bandpass filters, plotting raw versus filtered traces side by side.",
+      "Used MNE-Python to render topographic brain maps, connecting frequency-domain output to physical brain regions.",
+      "Ran the workshop for 30+ IEEE McMaster students."
+    ],
+    impact: [
+      "Students processed real brain data end-to-end: raw EEG traces to labeled topographic brain maps.",
+      "Workshop materials are now part of IEEE McMaster's recurring technical curriculum."
+    ],
+    links: [],
+    categories: ["software"]
   },
   {
     id: "tetris",

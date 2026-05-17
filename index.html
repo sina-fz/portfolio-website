@@ -17,7 +17,7 @@
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="index.html#top">
-        <span class="brand-mark">SF</span>
+        <span class="brand-sf">SF</span><span class="brand-name"> / Sina Forouzanfar</span>
       </a>
       <nav aria-label="Primary">
         <ul class="nav-links">
@@ -38,11 +38,11 @@
 
     <section class="hero" id="intro">
       <div class="container hero-grid">
-        <div class="hero-text">
-          <h1 class="hero-title">
-            <span class="hero-greet">Hi, I'm <em>Sina</em>.</span>
-          </h1>
+        <h1 class="hero-title">
+          Hi, I'm <em>Sina</em>.
+        </h1>
 
+        <div class="hero-text">
           <p class="hero-tagline">
             Hardware and software solve different problems. I enjoy building the systems where they come together.
           </p>
@@ -50,18 +50,87 @@
           <p class="hero-focus">Embedded Systems <span class="sep">•</span> Firmware <span class="sep">•</span> Software Engineering</p>
 
           <div class="hero-actions">
-            <div class="hero-actions-row">
-              <a class="btn hero-btn-dark" href="work.html">Projects</a>
-              <a class="btn hero-btn-light" href="experience.html">Experience</a>
-            </div>
-            <a class="btn hero-btn-dark hero-btn-contact" href="#contact">Contact</a>
+            <a class="btn hero-btn-dark" href="work.html">Projects</a>
+            <a class="btn hero-btn-light" href="experience.html">Experience</a>
+            <a class="btn hero-btn-dark" href="#contact">Contact</a>
           </div>
         </div>
 
         <div class="hero-portrait">
-          <figure class="portrait-frame">
-            <img src="images/sina.png" alt="Sina Forouzanfar">
-          </figure>
+          <div class="robo-stage">
+            <svg class="robo-arm" viewBox="0 0 800 310" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+              <!-- BRACKET (stationary, off-screen right) -->
+              <rect x="654" y="97" width="146" height="116" rx="6" fill="#1a1a1a"/>
+              <rect x="670" y="79" width="114" height="22" rx="4" fill="#1a1a1a"/>
+              <rect x="666" y="209" width="122" height="16" rx="3" fill="#1a1a1a"/>
+              <rect x="688" y="93" width="78" height="8" rx="2" fill="#272727"/>
+
+              <!-- SHOULDER DISC -->
+              <circle cx="654" cy="155" r="40" fill="#1a1a1a"/>
+              <circle cx="654" cy="155" r="22" fill="#272727"/>
+              <circle cx="654" cy="155" r="10" fill="#1a1a1a"/>
+
+              <!-- ===== SHOULDER GROUP ===== -->
+              <g class="joint-shoulder">
+
+                <!-- UPPER ARM — thick organic body, like the reference silhouette -->
+                <path d="M 643 105 L 430 105 C 414 105 412 128 412 155 C 412 182 414 205 430 205 L 643 205 Z" fill="#1a1a1a"/>
+
+                <!-- CABLES arching prominently over upper arm (key feature from reference) -->
+                <path d="M 636 97 Q 528 76 418 97" stroke="#1a1a1a" stroke-width="11" fill="none" stroke-linecap="round"/>
+                <path d="M 624 90 Q 518 68 410 90" stroke="#1a1a1a" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+                <!-- ===== ELBOW GROUP ===== -->
+                <g class="joint-elbow">
+
+                  <!-- ELBOW DISC — large prominent disc like reference -->
+                  <circle cx="412" cy="155" r="35" fill="#1a1a1a"/>
+                  <circle cx="412" cy="155" r="19" fill="#272727"/>
+                  <circle cx="412" cy="155" r="8" fill="#1a1a1a"/>
+
+                  <!-- FOREARM — slightly narrower, organic shape -->
+                  <path d="M 398 119 L 248 119 C 232 119 226 136 226 155 C 226 174 232 191 248 191 L 398 191 Z" fill="#1a1a1a"/>
+
+                  <!-- FOREARM CABLES -->
+                  <path d="M 390 111 Q 310 96 232 111" stroke="#1a1a1a" stroke-width="9" fill="none" stroke-linecap="round"/>
+                  <path d="M 380 105 Q 302 90 226 105" stroke="#1a1a1a" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+                  <!-- ===== WRIST GROUP ===== -->
+                  <g class="joint-wrist">
+
+                    <!-- WRIST DISC -->
+                    <circle cx="226" cy="155" r="27" fill="#1a1a1a"/>
+                    <circle cx="226" cy="155" r="14" fill="#272727"/>
+                    <circle cx="226" cy="155" r="6" fill="#1a1a1a"/>
+
+                    <!-- CONNECTOR BOX — stepped profile like reference -->
+                    <rect x="128" y="111" width="100" height="88" rx="5" fill="#1a1a1a"/>
+                    <rect x="142" y="100" width="72" height="15" rx="3" fill="#1a1a1a"/>
+                    <rect x="142" y="195" width="72" height="13" rx="3" fill="#1a1a1a"/>
+                    <!-- Panel inset -->
+                    <rect x="146" y="120" width="58" height="58" rx="3" fill="#272727"/>
+
+                    <!-- TOP JAW (main + secondary finger, like reference multi-claw) -->
+                    <g class="gripper-finger-top">
+                      <path d="M 152 111 L 74 94 L 48 109 L 36 130 L 152 140 Z" fill="#1a1a1a"/>
+                      <path d="M 90 91 L 66 104 L 50 120 L 48 136 L 86 130 Z" fill="#1a1a1a"/>
+                    </g>
+
+                    <!-- BOTTOM JAW (mirror of top jaw) -->
+                    <g class="gripper-finger-bottom">
+                      <path d="M 152 199 L 74 216 L 48 201 L 36 180 L 152 170 Z" fill="#1a1a1a"/>
+                      <path d="M 90 219 L 66 206 L 50 190 L 48 174 L 86 180 Z" fill="#1a1a1a"/>
+                    </g>
+
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <figure class="portrait-frame">
+              <img src="images/sina.png" alt="Sina Forouzanfar">
+            </figure>
+          </div>
         </div>
       </div>
 
@@ -107,31 +176,30 @@
     <section id="skills" class="section">
       <div class="container">
         <p class="section-eyebrow">02 — Toolkit</p>
-        <h2 class="section-title">Tools I work with.</h2>
+        <h2 class="section-title">What I actually use.</h2>
+        <p class="section-sub">C and Python are my defaults. STM32 is my embedded platform of choice. Everything else depends on the problem.</p>
 
         <div class="skills-grid">
           <div class="skill-cat">
             <h3><span class="skill-num">/01</span> Languages</h3>
             <div class="chips">
               <span>C</span><span>C++</span><span>Python</span>
-              <span>MATLAB</span><span>JavaScript</span>
-              <span>SQL</span><span>Bash</span>
+              <span>MATLAB</span><span>JavaScript</span><span>Bash</span>
             </div>
           </div>
           <div class="skill-cat">
             <h3><span class="skill-num">/02</span> Embedded &amp; Hardware</h3>
             <div class="chips">
               <span>STM32</span><span>Arduino</span><span>Raspberry Pi</span>
-              <span>KiCad</span><span>UART</span>
-              <span>Oscilloscopes</span><span>Sensors</span>
+              <span>KiCad</span><span>UART</span><span>Oscilloscopes</span>
             </div>
           </div>
           <div class="skill-cat">
             <h3><span class="skill-num">/03</span> Frameworks &amp; Tools</h3>
             <div class="chips">
-              <span>React</span><span>Docker</span><span>Git</span>
-              <span>AWS</span><span>TensorFlow</span><span>OpenCV</span>
-              <span>Simulink</span><span>Autodesk Inventor</span>
+              <span>Simulink</span><span>MNE-Python</span><span>OpenCV</span>
+              <span>React</span><span>Git</span><span>Docker</span>
+              <span>Autodesk Inventor</span>
             </div>
           </div>
         </div>
@@ -141,7 +209,7 @@
     <section id="contact" class="contact-end">
       <div class="container contact-end-inner">
         <header class="contact-end-head">
-          <h2 class="contact-end-title">My <em>contacts</em>.</h2>
+          <h2 class="contact-end-title">Say <em>hello</em>.</h2>
           <span class="contact-end-rule" aria-hidden="true"></span>
         </header>
 
