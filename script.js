@@ -670,6 +670,58 @@ if (modal) {
 }
 
 // =====================================================
+// MOBILE NAV
+// =====================================================
+(function () {
+  const hamburger = document.getElementById("navHamburger");
+  if (!hamburger) return;
+
+  // Inject overlay once
+  const overlay = document.createElement("div");
+  overlay.id = "mobileNavOverlay";
+  overlay.className = "mobile-nav";
+  overlay.setAttribute("aria-hidden", "true");
+  overlay.innerHTML = `
+    <ul class="mobile-nav-links">
+      <li><a href="work.html">Projects</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a class="mobile-nav-resume-link" href="Sina_Forouzanfar_Resume.pdf" target="_blank" rel="noopener">Resume ↗</a>
+  `;
+  document.body.appendChild(overlay);
+
+  function openMenu() {
+    hamburger.classList.add("is-open");
+    hamburger.setAttribute("aria-expanded", "true");
+    overlay.classList.add("is-open");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove("is-open");
+    hamburger.setAttribute("aria-expanded", "false");
+    overlay.classList.remove("is-open");
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  hamburger.addEventListener("click", () => {
+    overlay.classList.contains("is-open") ? closeMenu() : openMenu();
+  });
+
+  // Close on nav link click (for same-page anchors)
+  overlay.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("is-open")) closeMenu();
+  });
+})();
+
+// =====================================================
 // CUSTOM CURSOR
 // =====================================================
 const dot = document.querySelector(".cursor-dot");
