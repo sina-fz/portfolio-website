@@ -729,7 +729,7 @@ const ring = document.querySelector(".cursor-ring");
 
 if (window.matchMedia("(min-width: 901px)").matches && dot && ring) {
   let mx = 0, my = 0, rx = 0, ry = 0;
-  let rafId = null, lastMoveTime = 0;
+  let rafId = null, lastMoveTime = 0, firstMove = true;
 
   function loop() {
     rx += (mx - rx) * 0.18;
@@ -743,6 +743,7 @@ if (window.matchMedia("(min-width: 901px)").matches && dot && ring) {
     mx = e.clientX; my = e.clientY;
     lastMoveTime = Date.now();
     dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    if (firstMove) { rx = mx; ry = my; firstMove = false; }
     if (!rafId) rafId = requestAnimationFrame(loop);
   });
 
