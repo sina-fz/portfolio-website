@@ -94,6 +94,7 @@ body::after {
     radial-gradient(700px 520px at 28% 78%, rgba(0, 0, 0, 0.08), transparent 64%);
   filter: blur(10px);
   transform: translate3d(0, 0, 0);
+  will-change: transform, filter;
   animation: inkWashDrift 18s var(--ease) infinite alternate;
   mix-blend-mode: multiply;
 }
@@ -437,14 +438,22 @@ body > * { position: relative; z-index: 1; }
   width: 9px; height: 9px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.3);
   animation: ping 2s infinite;
 }
 
 @keyframes ping {
-  0%   { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25); }
-  70%  { box-shadow: 0 0 0 12px rgba(0, 0, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+  0%   { transform: scale(1); opacity: 0.6; }
+  70%  { transform: scale(3.7); opacity: 0; }
+  100% { transform: scale(3.7); opacity: 0; }
 }
 
 .hero-title {
@@ -953,7 +962,15 @@ body > * { position: relative; z-index: 1; }
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.sense-corner .dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.3);
   animation: ping 2.4s infinite;
 }
 
@@ -967,6 +984,7 @@ body > * { position: relative; z-index: 1; }
 
 .dot-move { background: var(--blue) !important; animation: none; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
 .dot-sense { background: var(--green) !important; animation: none; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+.dot-move::after, .dot-sense::after { animation: none; }
 .dot-respond {
   background: #404040 !important;
   animation: none;
@@ -2170,6 +2188,12 @@ body.gallery-lightbox-open {
   .work-art { min-height: 160px; }
   .stats-grid { gap: 2rem 1rem; }
 }
+
+/* Pause infinite animations when the tab is hidden */
+body.page-hidden::after,
+body.page-hidden .pulse::after,
+body.page-hidden .sense-corner .dot::after,
+body.page-hidden .scroll-cue { animation-play-state: paused; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
