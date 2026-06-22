@@ -389,8 +389,7 @@ const PROJECTS_ALL = [
     gallery: [
       "Progects_Imgs/Tetris/Image.png",
       "Progects_Imgs/Tetris/Image (7).jpg",
-      "Progects_Imgs/Tetris/Image (8).jpg",
-      "Progects_Imgs/Tetris/Image (8) - Copy.jpg"
+      "Progects_Imgs/Tetris/Image (8).jpg"
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -727,28 +726,35 @@ if (modal) {
 const dot = document.querySelector(".cursor-dot");
 const ring = document.querySelector(".cursor-ring");
 
-if (window.matchMedia("(min-width: 901px)").matches && dot && ring) {
+if (dot && ring) {
+  const cursorMq = window.matchMedia("(min-width: 901px)");
+  let cursorActive = cursorMq.matches;
+  cursorMq.addEventListener("change", (e) => { cursorActive = e.matches; });
+
   let mx = 0, my = 0, rx = 0, ry = 0;
 
   document.addEventListener("mousemove", (e) => {
+    if (!cursorActive) return;
     mx = e.clientX; my = e.clientY;
     dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
   });
 
   function loop() {
-    rx += (mx - rx) * 0.18;
-    ry += (my - ry) * 0.18;
-    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)${ring.classList.contains("hover") ? " scale(1.6)" : ""}`;
+    if (cursorActive) {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)${ring.classList.contains("hover") ? " scale(1.6)" : ""}`;
+    }
     requestAnimationFrame(loop);
   }
   loop();
 
   const hoverables = "a, button, .work-card, .work-filter, .modal-gallery-img, .gallery-lightbox-close, .gallery-lightbox-backdrop, .skill-cat, [data-close]";
   document.addEventListener("mouseover", (e) => {
-    if (e.target.closest(hoverables)) ring.classList.add("hover");
+    if (cursorActive && e.target.closest(hoverables)) ring.classList.add("hover");
   });
   document.addEventListener("mouseout", (e) => {
-    if (e.target.closest(hoverables)) ring.classList.remove("hover");
+    if (cursorActive && e.target.closest(hoverables)) ring.classList.remove("hover");
   });
 }
 

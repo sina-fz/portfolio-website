@@ -135,6 +135,8 @@ body > * { position: relative; z-index: 1; }
 
 .cursor-ring.hover { transform: translate(-50%, -50%) scale(1.6); opacity: 1; }
 
+a, button, .work-card, .work-filter { touch-action: manipulation; }
+
 @media (max-width: 900px) {
   .cursor-dot, .cursor-ring { display: none; }
   body { cursor: auto; }
@@ -2148,7 +2150,7 @@ body.gallery-lightbox-open {
   .hero-actions {
     flex-wrap: wrap;
   }
-  .hero { min-height: auto; padding: 2rem 0 3.5rem; }
+  .hero { min-height: auto; padding: 2rem 0 6rem; }
   .robo-arm { display: none; }
   .about-split { grid-template-columns: 1fr; gap: 2rem; }
   .about-viz { order: 1; }
