@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects — Sina Forouzanfar</title>
-  <meta name="description" content="Project archive — Sina Forouzanfar">
+  <title>Project — Sina Forouzanfar</title>
+  <meta name="description" content="Project case study — Sina Forouzanfar">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body data-projects-page="all">
+<body data-projects-page="detail">
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
 
@@ -41,22 +41,11 @@
   <main class="page-main">
     <section class="section">
       <div class="container">
-        <p class="section-eyebrow">Projects</p>
-        <h1 class="section-title page-title">All projects.</h1>
-        <p class="section-sub page-lead">Every project here was built and tested on real hardware. Filter by category, or click any card for the full write-up.</p>
-
-        <div class="work-filters" id="workFilters" role="toolbar" aria-label="Filter projects by type">
-          <button type="button" class="work-filter is-active" data-filter="all" aria-pressed="true">All</button>
-          <button type="button" class="work-filter" data-filter="embedded" aria-pressed="false">Embedded</button>
-          <button type="button" class="work-filter" data-filter="mechanical" aria-pressed="false">Mechanical</button>
-          <button type="button" class="work-filter" data-filter="software" aria-pressed="false">Software</button>
-        </div>
-
-        <div class="work-list" id="workList"></div>
-
         <p class="back-link-wrap">
-          <a class="back-link" href="index.html">← Back to home</a>
+          <a class="back-link" href="work.html">← Back to all projects</a>
         </p>
+
+        <div class="modal-content" id="projectDetailContent"></div>
       </div>
     </section>
   </main>

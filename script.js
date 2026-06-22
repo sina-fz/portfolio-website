@@ -470,11 +470,10 @@ function renderWorkList() {
     return;
   }
   list.innerHTML = projects.map((p, i) => `
-    <button class="work-card ${i % 2 === 1 ? "flip" : ""} reveal"
-            data-id="${p.id}"
-            type="button"
-            style="--art-bg:${p.artBg}; --art-fg:${p.artFg}"
-            aria-label="Open ${p.title} case study">
+    <a class="work-card ${i % 2 === 1 ? "flip" : ""} reveal"
+       href="project.html?id=${encodeURIComponent(p.id)}"
+       style="--art-bg:${p.artBg}; --art-fg:${p.artFg}"
+       aria-label="Open ${p.title} case study">
       <div class="work-art">
         <div class="art-grid"></div>
         ${workCardArt(p)}
@@ -491,25 +490,21 @@ function renderWorkList() {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
         </span>
       </div>
-    </button>
+    </a>
   `).join("");
 }
 
 renderWorkList();
 
 // =====================================================
-// MODAL
+// PROJECT DETAIL PAGE
 // =====================================================
-const modal = document.getElementById("projectModal");
-const modalContent = document.getElementById("modalContent");
-let lastFocused = null;
-
 function linkTargetAttrs(url) {
   if (/^https?:\/\//i.test(url)) return ' target="_blank" rel="noopener noreferrer"';
   return "";
 }
 
-/** Modal top: horizontal filmstrip of project photos (loops left → right). */
+/** Hero: horizontal filmstrip of project photos (loops left → right). */
 function modalHeroHtml(p) {
   const shots = Array.isArray(p.gallery) && p.gallery.length
     ? p.gallery
@@ -535,14 +530,11 @@ function modalHeroHtml(p) {
     </div>`;
 }
 
-function openProject(id) {
-  const p = PROJECTS_ALL.find(x => x.id === id);
-  if (!p || !modal || !modalContent) return;
-
-  modalContent.innerHTML = `
+function projectDetailHtml(p) {
+  return `
     ${modalHeroHtml(p)}
     <p class="m-tagline">${p.tagline} · ${p.period}</p>
-    <h2 id="modalTitle">${p.title}</h2>
+    <h1 id="modalTitle">${p.title}</h1>
     <p class="m-summary">${p.summary}</p>
 
     <div class="modal-section">
@@ -581,23 +573,33 @@ function openProject(id) {
         }).join("")}
       </div>` : ""}
   `;
-
-  lastFocused = document.activeElement;
-  if (!modal) return;
-  closeGalleryLightbox();
-  modal.hidden = false;
-  document.body.style.overflow = "hidden";
-  const closeBtn = modal.querySelector(".modal-close");
-  if (closeBtn) closeBtn.focus();
 }
 
-function closeProject() {
-  closeGalleryLightbox();
-  if (!modal) return;
-  modal.hidden = true;
-  document.body.style.overflow = "";
-  if (lastFocused) lastFocused.focus();
+function renderProjectDetailPage() {
+  const container = document.getElementById("projectDetailContent");
+  if (!container) return;
+
+  const id = new URLSearchParams(location.search).get("id");
+  const p = PROJECTS_ALL.find(x => x.id === id);
+
+  if (!p) {
+    document.title = "Project not found — Sina Forouzanfar";
+    container.innerHTML = `
+      <h1>Project not found</h1>
+      <p class="m-summary">That project doesn't exist or may have moved.</p>
+      <p><a class="btn ghost" href="work.html">← Back to all projects</a></p>
+    `;
+    return;
+  }
+
+  document.title = `${p.title} — Sina Forouzanfar`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", p.summary);
+
+  container.innerHTML = projectDetailHtml(p);
 }
+
+renderProjectDetailPage();
 
 function ensureGalleryLightbox() {
   if (document.getElementById("galleryLightbox")) return;
@@ -619,7 +621,7 @@ function ensureGalleryLightbox() {
 function openGalleryLightbox(imgEl) {
   ensureGalleryLightbox();
   const lb = document.getElementById("galleryLightbox");
-  const track = modalContent.querySelector(".modal-gallery-track");
+  const track = document.querySelector("#projectDetailContent .modal-gallery-track");
   if (!lb || !imgEl) return;
   const big = lb.querySelector(".gallery-lightbox-img");
   big.src = imgEl.currentSrc || imgEl.src;
@@ -634,7 +636,7 @@ function closeGalleryLightbox() {
   const lb = document.getElementById("galleryLightbox");
   if (lb) lb.hidden = true;
   document.body.classList.remove("gallery-lightbox-open");
-  const track = document.querySelector("#modalContent .modal-gallery-track");
+  const track = document.querySelector("#projectDetailContent .modal-gallery-track");
   if (track) track.classList.remove("is-paused");
 }
 
@@ -643,9 +645,11 @@ document.addEventListener("click", (e) => {
     closeGalleryLightbox();
     return;
   }
-  const card = e.target.closest(".work-card");
-  if (card) { openProject(card.dataset.id); return; }
-  if (e.target.closest("[data-close]")) closeProject();
+  const img = e.target.closest("#projectDetailContent .modal-gallery-img");
+  if (img) {
+    e.preventDefault();
+    openGalleryLightbox(img);
+  }
 });
 
 document.addEventListener("keydown", (e) => {
@@ -653,20 +657,8 @@ document.addEventListener("keydown", (e) => {
   if (lb && !lb.hidden && e.key === "Escape") {
     e.preventDefault();
     closeGalleryLightbox();
-    return;
   }
-  if (modal && e.key === "Escape" && !modal.hidden) closeProject();
 });
-
-if (modal) {
-  modal.addEventListener("click", (e) => {
-    const img = e.target.closest(".modal-gallery-img");
-    if (!img || modal.hidden) return;
-    e.preventDefault();
-    e.stopPropagation();
-    openGalleryLightbox(img);
-  });
-}
 
 // =====================================================
 // MOBILE NAV
