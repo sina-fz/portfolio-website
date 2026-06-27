@@ -504,8 +504,8 @@ function linkTargetAttrs(url) {
   return "";
 }
 
-/** Hero: horizontal filmstrip of project photos (loops left → right). */
-function modalHeroHtml(p) {
+/** Hero: full photo grid for the project (click any shot to enlarge). */
+function projectGalleryHtml(p) {
   const shots = Array.isArray(p.gallery) && p.gallery.length
     ? p.gallery
     : (p.coverImage ? [p.coverImage] : []);
@@ -516,23 +516,18 @@ function modalHeroHtml(p) {
       ${p.art}
     </div>`;
   }
-  const duration = Math.min(140, Math.max(40, shots.length * 18));
   const imgs = shots.map((src) =>
-    `<img src="${assetUrl(src)}" alt="" class="modal-gallery-img" loading="lazy" title="Click to enlarge" />`
+    `<img src="${assetUrl(src)}" alt="" class="project-gallery-img" loading="lazy" title="Click to enlarge" />`
   ).join("");
-  const strip = imgs + imgs;
   return `
-    <div class="modal-art modal-art--gallery" style="--art-bg:${p.artBg}; --art-fg:${p.artFg}; --modal-gallery-duration:${duration}s">
-      <div class="art-grid"></div>
-      <div class="modal-gallery" aria-label="${escAttr(p.title)} project photos">
-        <div class="modal-gallery-track">${strip}</div>
-      </div>
+    <div class="project-gallery-wrap">
+      <div class="project-gallery-grid" aria-label="${escAttr(p.title)} project photos">${imgs}</div>
     </div>`;
 }
 
 function projectDetailHtml(p) {
   return `
-    ${modalHeroHtml(p)}
+    ${projectGalleryHtml(p)}
     <p class="m-tagline">${p.tagline} · ${p.period}</p>
     <h1 id="modalTitle">${p.title}</h1>
     <p class="m-summary">${p.summary}</p>
@@ -621,14 +616,12 @@ function ensureGalleryLightbox() {
 function openGalleryLightbox(imgEl) {
   ensureGalleryLightbox();
   const lb = document.getElementById("galleryLightbox");
-  const track = document.querySelector("#projectDetailContent .modal-gallery-track");
   if (!lb || !imgEl) return;
   const big = lb.querySelector(".gallery-lightbox-img");
   big.src = imgEl.currentSrc || imgEl.src;
   big.alt = imgEl.alt || "Project photo";
   lb.hidden = false;
   document.body.classList.add("gallery-lightbox-open");
-  if (track) track.classList.add("is-paused");
   lb.querySelector(".gallery-lightbox-close")?.focus({ preventScroll: true });
 }
 
@@ -636,8 +629,6 @@ function closeGalleryLightbox() {
   const lb = document.getElementById("galleryLightbox");
   if (lb) lb.hidden = true;
   document.body.classList.remove("gallery-lightbox-open");
-  const track = document.querySelector("#projectDetailContent .modal-gallery-track");
-  if (track) track.classList.remove("is-paused");
 }
 
 document.addEventListener("click", (e) => {
@@ -645,7 +636,7 @@ document.addEventListener("click", (e) => {
     closeGalleryLightbox();
     return;
   }
-  const img = e.target.closest("#projectDetailContent .modal-gallery-img");
+  const img = e.target.closest("#projectDetailContent .project-gallery-img");
   if (img) {
     e.preventDefault();
     openGalleryLightbox(img);
@@ -741,7 +732,7 @@ if (dot && ring) {
   }
   loop();
 
-  const hoverables = "a, button, .work-card, .work-filter, .modal-gallery-img, .gallery-lightbox-close, .gallery-lightbox-backdrop, .skill-cat, [data-close]";
+  const hoverables = "a, button, .work-card, .work-filter, .project-gallery-img, .gallery-lightbox-close, .gallery-lightbox-backdrop, .skill-cat, [data-close]";
   document.addEventListener("mouseover", (e) => {
     if (cursorActive && e.target.closest(hoverables)) ring.classList.add("hover");
   });

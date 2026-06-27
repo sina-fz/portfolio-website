@@ -157,6 +157,12 @@ a, button, .work-card, .work-filter { touch-action: manipulation; }
   scroll-margin-top: 80px;
 }
 
+/* Project detail page has no eyebrow/title block at the top, so it doesn't need the
+   large top padding that's normally there to balance one. */
+body[data-projects-page="detail"] .section { padding-top: 2.5rem; }
+
+.project-back-link-wrap { margin: 0 0 2rem; }
+
 #skills {
   padding-top: 3.5rem;
   padding-bottom: 5rem;
@@ -1725,69 +1731,33 @@ a, button, .work-card, .work-filter { touch-action: manipulation; }
   color: var(--art-fg, var(--ink));
 }
 
-.modal-art .modal-cover-img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
 .modal-art--static {
   display: grid;
   place-items: center;
 }
 
-.modal-art--gallery {
-  display: block;
-  padding: 0;
+.project-gallery-wrap {
+  margin: 0 -3rem 2rem;
 }
 
-.modal-art--gallery .modal-gallery {
-  position: relative;
-  z-index: 1;
-  height: 220px;
+.project-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.6rem;
+}
+
+.project-gallery-img {
   width: 100%;
-  overflow: hidden;
-}
-
-.modal-art--gallery .modal-gallery-track {
-  display: flex;
-  width: max-content;
-  height: 100%;
-  align-items: stretch;
-  will-change: transform;
-  backface-visibility: hidden;
-  animation: modalGalleryMarquee var(--modal-gallery-duration, 48s) linear infinite;
-}
-
-.modal-art--gallery .modal-gallery-track:hover {
-  animation-play-state: paused;
-}
-
-.modal-art--gallery .modal-gallery-track.is-paused {
-  animation-play-state: paused;
-}
-
-.modal-gallery-img {
-  height: 220px;
-  width: auto;
-  min-width: 260px;
-  max-width: 520px;
+  height: 260px;
   object-fit: cover;
   object-position: center;
-  flex-shrink: 0;
   display: block;
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--bg-soft);
   cursor: zoom-in;
+  transition: opacity 0.2s var(--ease);
 }
 
-@keyframes modalGalleryMarquee {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
+.project-gallery-img:hover { opacity: 0.92; }
 
 /* Full-size photo (modal filmstrip click) */
 body.gallery-lightbox-open {
@@ -2166,9 +2136,9 @@ body.gallery-lightbox-open {
   .section { padding: 6rem 0 2rem; }
   .modal-content { padding: 2rem 1.5rem 1.5rem; }
   .modal-art { margin: 0 -1.5rem 1.5rem; height: 180px; }
-  .modal-art--gallery .modal-gallery,
-  .modal-gallery-img { height: 180px; }
-  .modal-gallery-img { min-width: 200px; max-width: 100%; }
+  .project-gallery-wrap { margin: 0 -1.5rem 1.5rem; }
+  .project-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.4rem; }
+  .project-gallery-img { height: 180px; }
   .work-body { padding: 2rem 1.6rem; }
 }
 
@@ -2213,15 +2183,4 @@ body.page-hidden .scroll-cue { animation-play-state: paused; }
   body::after { animation: none !important; }
   .robo-arm { display: none; }
   .hero-portrait .portrait-frame { animation: none !important; }
-  .modal-art--gallery .modal-gallery {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-  }
-  .modal-art--gallery .modal-gallery-track {
-    animation: none !important;
-    transform: none;
-  }
-  .modal-gallery-img { scroll-snap-align: start; }
 }
