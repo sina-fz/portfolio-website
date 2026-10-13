@@ -36,7 +36,11 @@ html { scroll-behavior: smooth; }
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  /* `clip`, not `hidden`: hidden computes overflow-y to `auto`, which turns these
+     into scroll containers and silently breaks every position:sticky on the page
+     (the header and .xp-sticky were scrolling away). `clip` stops the sideways
+     overflow from the hero arm without creating a scrollport. */
+  overflow-x: clip;
   background: var(--bg);
   color: var(--ink);
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -48,7 +52,7 @@ html, body {
 
 body {
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
   isolation: isolate;
   background-image:
@@ -245,17 +249,16 @@ body[data-projects-page="detail"] .section { padding-top: 2.5rem; }
   position: sticky;
   top: 0;
   z-index: 100;
-  /* No backdrop-filter: the bar is 96% opaque, so a 14px blur of the remaining
-     4% was invisible, but it forced the compositor to re-blur the strip behind
-     the header on every scroll frame — and to resample the ink-wash layer
-     underneath while doing it. */
-  background: rgba(237, 232, 220, 0.96);
+  /* Opaque, and no backdrop-filter. Now that sticky actually works the bar sits
+     over scrolling content, so a 14px blur here would be re-rendered on every
+     scroll frame for the whole page — and leaving it merely translucent without
+     the blur just ghosts the headings underneath through it. */
+  background: var(--bg);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  transition: border-color 0.25s var(--ease), background 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 
 .site-header.scrolled {
-  background: rgba(237, 232, 220, 0.97);
   border-bottom-color: rgba(0, 0, 0, 0.10);
   box-shadow: 0 8px 28px -16px rgba(0, 0, 0, 0.10);
 }
