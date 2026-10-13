@@ -31,6 +31,12 @@ const PROJECTS_ALL = [
       </svg>`,
     tags: ["Arduino", "Embedded C/C++", "Sensor Signal Processing", "Servo Actuation", "3D Printing", "Design Verification"],
     problem: "Naloxone reverses an opioid overdose and is free at most Ontario pharmacies, but it cannot be self-administered once you are unconscious — which is precisely when it is needed. Over 53,000 overdose deaths were recorded in Canada between 2016 and 2025. The question we took on was whether a wearable could close that gap on its own: detect respiratory depression, deliver the dose, and call for help, while staying under a $30 build cost and inside the footprint of a standard naloxone kit.",
+    facts: [
+      { label: "My role", value: "Detection, mechanism &amp; verification" },
+      { label: "Team", value: "4 engineers" },
+      { label: "Platform", value: "Arduino + SGP30 VOC sensor" },
+      { label: "Outcome", value: "1 of 2 tests passed" }
+    ],
     role: "I owned the sense-decide-actuate path and the testing that judged it. That meant the sensing firmware and the breathing-rate algorithm, the servo-and-spring mechanism that fires the canister, and running both verification tests — including the one that failed. Risk and economic analysis were handled by the rest of the team.",
     approach: [
       "Derived breathing rate from exhalation peaks in an SGP30 VOC signal instead of adding a dedicated respiration sensor, which kept the bill of materials inside the $30 target.",
@@ -148,10 +154,8 @@ const PROJECTS_ALL = [
       { src: "media/pacemaker/screenshot-2026-05-08-142408", w: [500, 1000, 1600, 1831] },
       { src: "media/pacemaker/screenshot-2026-05-08-142423", w: [500, 1000, 1600, 1790] },
       { src: "media/pacemaker/screenshot-2026-05-08-142712", w: [500, 1000, 1052] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142721", w: [215] },
       { src: "media/pacemaker/screenshot-2026-05-08-142736", w: [500, 1000, 1030] },
       { src: "media/pacemaker/screenshot-2026-05-08-142804", w: [500, 1000, 1153] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142810", w: [52] },
       { src: "media/pacemaker/screenshot-2026-05-08-142822", w: [500, 1000, 1163] },
       { src: "media/pacemaker/screenshot-2026-05-08-142918", w: [500, 1000, 1395] }
     ],
@@ -162,6 +166,12 @@ const PROJECTS_ALL = [
       </svg>`,
     tags: ["Simulink / Stateflow", "NXP FRDM-K64F", "Model-Based Design", "UART", "Real-Time Control", "Medical Devices"],
     problem: "A pacemaker is a hard real-time device where a late pulse is a safety event, and where a clinician has to be able to retune pacing parameters on a device that is already running. The brief mirrored how regulated medical software is actually produced: requirements written and traced first, modules defined by what they hide rather than what they do, and every pacing mode signed off against a numeric pass band instead of looking right on a scope.",
+    facts: [
+      { label: "My role", value: "Firmware &amp; serial interface" },
+      { label: "Team", value: "6 engineers" },
+      { label: "Platform", value: "NXP FRDM-K64F" },
+      { label: "Verified", value: "4 of 9 modes on hardware" }
+    ],
     role: "I worked the embedded side of a six-person team. The Stateflow pacing charts, the input-processing layer feeding them, the hardware I/O mapping on the K64F, and the UART link carrying parameters between the board and the DCM were mine. Teammates built the DCM front end — I owned the firmware and the serial interface it talks to.",
     approach: [
       "Modelled each pacing mode as a Stateflow chart — charge, discharge, refractory — and generated embedded code from the model, so the pacing logic could be reviewed as a state diagram before it ever ran on hardware.",
@@ -360,7 +370,6 @@ const PROJECTS_ALL = [
       { src: "media/signal-processing/screenshot-2025-05-15-134714", w: [500, 1000, 1090] },
       { src: "media/signal-processing/screenshot-2025-05-15-134741", w: [500, 1000, 1600, 2042] },
       { src: "media/signal-processing/screenshot-2025-05-15-135239", w: [500, 1000, 1095] },
-      { src: "media/signal-processing/screenshot-2025-05-15-140214", w: [27] },
       { src: "media/signal-processing/screenshot-2025-05-15-141005", w: [500, 767] },
       { src: "media/signal-processing/screenshot-2025-05-15-142749", w: [500, 986] },
       { src: "media/signal-processing/screenshot-2025-05-15-153841", w: [287] },
@@ -551,18 +560,31 @@ function linkTargetAttrs(url) {
   return "";
 }
 
-/** Hero: full photo grid for the project (click any shot to enlarge). */
-function projectGalleryHtml(p) {
-  const shots = Array.isArray(p.gallery) && p.gallery.length
-    ? p.gallery
-    : (p.coverImage ? [p.coverImage] : []);
-  if (!shots.length) {
+/** One large image at the top, so the page leads with the thing itself. */
+function projectHeroHtml(p) {
+  if (!p.coverImage) {
     return `
     <div class="modal-art modal-art--static" style="--art-bg:${p.artBg}; --art-fg:${p.artFg}">
       <div class="art-grid"></div>
       ${p.art}
     </div>`;
   }
+  return `
+    <figure class="project-hero">
+      <img src="${mediaPick(p.coverImage, 1600)}"
+        srcset="${mediaSrcset(p.coverImage)}"
+        sizes="(max-width: 900px) 92vw, 1100px"
+        data-full="${mediaLargest(p.coverImage)}"
+        alt="${escAttr(p.title)}" decoding="async" class="project-gallery-img" />
+    </figure>`;
+}
+
+/** Everything else, below the write-up — evidence, not decoration. */
+function projectGalleryHtml(p) {
+  const all = Array.isArray(p.gallery) ? p.gallery : [];
+  // The cover is already the hero; don't show it twice.
+  const shots = p.coverImage ? all.filter(g => g.src !== p.coverImage.src) : all;
+  if (!shots.length) return "";
   // Grid cells are ~250 CSS px, so most visitors only ever fetch the 500w file.
   // data-full carries the original-resolution one, for the lightbox alone.
   const imgs = shots.map((img) =>
@@ -574,17 +596,36 @@ function projectGalleryHtml(p) {
       title="Click to enlarge" />`
   ).join("");
   return `
-    <div class="project-gallery-wrap">
-      <div class="project-gallery-grid" aria-label="${escAttr(p.title)} project photos">${imgs}</div>
-    </div>`;
+    <section class="project-gallery-section">
+      <h4>From the build</h4>
+      <div class="project-gallery-wrap">
+        <div class="project-gallery-grid" aria-label="${escAttr(p.title)} project photos">${imgs}</div>
+      </div>
+    </section>`;
+}
+
+function projectFactsHtml(p) {
+  if (!Array.isArray(p.facts) || !p.facts.length) return "";
+  return `
+    <dl class="project-facts">
+      ${p.facts.map(f => `
+        <div class="project-fact">
+          <dt>${f.label}</dt>
+          <dd>${f.value}</dd>
+        </div>`).join("")}
+    </dl>`;
 }
 
 function projectDetailHtml(p) {
   return `
-    ${projectGalleryHtml(p)}
-    <p class="m-tagline">${p.tagline} · ${p.period}</p>
-    <h1 id="modalTitle">${p.title}</h1>
-    <p class="m-summary">${p.summary}</p>
+    <header class="project-head">
+      <p class="m-tagline">${p.tagline} · ${p.period}</p>
+      <h1 id="modalTitle">${p.title}</h1>
+      <p class="m-summary project-lead">${p.summary}</p>
+    </header>
+
+    ${projectFactsHtml(p)}
+    ${projectHeroHtml(p)}
 
     <div class="modal-section">
       <h4>The Problem</h4>
@@ -633,6 +674,8 @@ function projectDetailHtml(p) {
           return `<a class="btn ghost" href="${href}"${linkTargetAttrs(l.url)}>${l.label} ↗</a>`;
         }).join("")}
       </div>` : ""}
+
+    ${projectGalleryHtml(p)}
   `;
 }
 
