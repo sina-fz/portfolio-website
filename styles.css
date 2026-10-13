@@ -92,12 +92,15 @@ body::after {
     radial-gradient(1100px 720px at 78% 18%, rgba(0, 0, 0, 0.12), transparent 60%),
     radial-gradient(900px 640px at 62% 76%, rgba(0, 0, 0, 0.10), transparent 62%),
     radial-gradient(700px 520px at 28% 78%, rgba(0, 0, 0, 0.08), transparent 64%);
-  filter: blur(10px);
   transform: translate3d(0, 0, 0);
-  will-change: transform, filter;
+  will-change: transform;
   animation: inkWashDrift 18s var(--ease) infinite alternate;
   mix-blend-mode: multiply;
 }
+/* No blur here on purpose: these gradients have 700-1400px radii, so a 10px
+   blur was invisible, but `will-change: filter` stopped the browser caching the
+   blurred result — it re-ran a full-viewport gaussian every frame, forever, on
+   every page, and anything blending over it (the cursor) paid for it too. */
 
 @keyframes inkWashDrift {
   0%   { transform: translate3d(-1.5%, -1%, 0) scale(1.02) rotate(-0.6deg); }
@@ -813,14 +816,16 @@ body[data-projects-page="detail"] .section { padding-top: 2.5rem; }
   pointer-events: none;
   transform: translate(70vw, -50%);
   animation: roboArmSequence 5s cubic-bezier(0.55, 0.05, 0.3, 0.98) 0.5s both;
-  will-change: transform;
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.22));
 }
 
 .hero-portrait .portrait-frame {
   animation: photoArrival 5s cubic-bezier(0.55, 0.05, 0.3, 0.98) 0.5s both;
-  will-change: transform, opacity;
 }
+/* No will-change on either of these: both are 5s one-shots that finish, but
+   will-change never comes back off, so a 560px filtered SVG and the portrait
+   stayed pinned to their own compositor layers for the life of the page.
+   Browsers already promote transform/opacity animations on their own. */
 
 @keyframes roboArmSequence {
   0%   { transform: translate(55vw, calc(-50% - 22vh)) rotate(-10deg); }
@@ -1125,7 +1130,8 @@ body[data-projects-page="detail"] .section { padding-top: 2.5rem; }
   stroke-dasharray: 1200;
   stroke-dashoffset: 1200;
   animation: pulseSweep 3.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.18));
+  /* No drop-shadow: animating stroke-dashoffset re-rasterises the path every
+     frame, and a filter on top re-blurred that fresh raster every frame too. */
 }
 
 .pulse-dot {
@@ -1134,9 +1140,23 @@ body[data-projects-page="detail"] .section { padding-top: 2.5rem; }
   height: 9px;
   border-radius: 50%;
   background: var(--ink);
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.35);
   animation: pulseBeat 1.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   pointer-events: none;
+}
+
+/* The halo was an animated box-shadow spread, which the main thread has to
+   repaint on every single frame, forever. Same two-stage heartbeat, but as
+   transform + opacity on a pseudo-element so the compositor owns it. */
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  /* Behind the dot, because a box-shadow paints outside the border box — without
+     this the halo washes grey over the dot itself at mid-opacity. */
+  z-index: -1;
+  animation: pulseHalo 1.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes pulseSweep {
@@ -1146,11 +1166,21 @@ body[data-projects-page="detail"] .section { padding-top: 2.5rem; }
 }
 
 @keyframes pulseBeat {
-  0%   { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.35); }
-  35%  { transform: scale(1.25); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
-  55%  { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25); }
-  75%  { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(0, 0, 0, 0); }
-  100% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+  0%   { transform: scale(0.85); }
+  35%  { transform: scale(1.25); }
+  55%  { transform: scale(0.95); }
+  75%  { transform: scale(1.15); }
+  100% { transform: scale(0.85); }
+}
+
+/* Mirrors the old box-shadow spreads: a 10px spread on a 9px dot reads as ~3.2x,
+   an 8px spread as ~2.8x, and the alphas map onto opacity (0.25/0.35 = 0.71). */
+@keyframes pulseHalo {
+  0%   { transform: scale(1);    opacity: 1; }
+  35%  { transform: scale(3.22); opacity: 0; }
+  55%  { transform: scale(1);    opacity: 0.71; }
+  75%  { transform: scale(2.78); opacity: 0; }
+  100% { transform: scale(1);    opacity: 0; }
 }
 
 /* ======================================
@@ -2174,9 +2204,13 @@ body.gallery-lightbox-open {
   .stats-grid { gap: 2rem 1rem; }
 }
 
-/* Pause infinite animations when the tab is hidden */
+/* Pause infinite animations when the tab is hidden.
+   .pulse-trace and .pulse-dot are the expensive two — dashoffset re-raster and
+   box-shadow repaint — and they were the ones missing from this list. */
 body.page-hidden::after,
 body.page-hidden .pulse::after,
+body.page-hidden .pulse-trace,
+body.page-hidden .pulse-dot,
 body.page-hidden .sense-corner .dot::after,
 body.page-hidden .scroll-cue { animation-play-state: paused; }
 
