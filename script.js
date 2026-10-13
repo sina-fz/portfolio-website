@@ -10,17 +10,17 @@ const PROJECTS_ALL = [
     summary: "Emergency-access dispenser prototype: mechanical dosing path, sensors, and Arduino firmware tuned for reliable timing and safe actuation.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: "media/narcan/01.webp",
+    coverImage: { src: "media/narcan-decpencer/image-7", w: [500, 934] },
     categories: ["embedded", "mechanical"],
     codeFile: "Progects_Imgs/Narcan Decpencer/3P04_Final_code.ino",
     gallery: [
-      "media/narcan/01.webp",
-      "media/narcan/02.webp",
-      "media/narcan/03.webp",
-      "media/narcan/04.webp",
-      "media/narcan/05.webp",
-      "media/narcan/06.webp",
-      "media/narcan/07.webp"
+      { src: "media/narcan-decpencer/image-7", w: [500, 934] },
+      { src: "media/narcan-decpencer/screenshot-2026-05-08-144841", w: [500, 1000, 1594] },
+      { src: "media/narcan-decpencer/screenshot-2026-05-08-144925", w: [500, 1000, 1170] },
+      { src: "media/narcan-decpencer/screenshot-2026-05-08-144951", w: [500, 1000, 1547] },
+      { src: "media/narcan-decpencer/screenshot-2026-05-08-145024", w: [500, 1000, 1333] },
+      { src: "media/narcan-decpencer/screenshot-2026-05-09-092002", w: [500, 1000, 1263] },
+      { src: "media/narcan-decpencer/screenshot-2026-05-09-092030", w: [500, 1000, 1247] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -50,11 +50,11 @@ const PROJECTS_ALL = [
     summary: "Robotic arm with precise PID-controlled motion and a computer-vision pipeline that detects targets and executes grasp sequences.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: "media/macbionic/01.webp",
+    coverImage: { src: "media/mac-bionic-arm/macbionic-feature", w: [500, 1000, 1024] },
     gallery: [
-      "media/macbionic/01.webp",
-      "media/macbionic/02.webp",
-      "media/macbionic/03.webp"
+      { src: "media/mac-bionic-arm/macbionic-feature", w: [500, 1000, 1024] },
+      { src: "media/mac-bionic-arm/screenshot-2026-05-09-095851", w: [500, 1000, 1107] },
+      { src: "media/mac-bionic-arm/screenshot-2026-05-09-123707", w: [500, 1000, 1364] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -91,12 +91,12 @@ const PROJECTS_ALL = [
     summary: "B2B vulnerability scanning tool that won 1st place out of 500+ engineering students and earned a provincial OEC selection.",
     artBg: "#E8E8E8",
     artFg: "#111111",
-    coverImage: "media/hackme/01.webp",
+    coverImage: { src: "media/hackme/hackme-feature", w: [500, 925] },
     gallery: [
-      "media/hackme/01.webp",
-      "media/hackme/02.webp",
-      "media/hackme/03.webp",
-      "media/hackme/04.webp"
+      { src: "media/hackme/hackme-feature", w: [500, 925] },
+      { src: "media/hackme/screenshot-2026-05-09-092656", w: [500, 1000, 1431] },
+      { src: "media/hackme/screenshot-2026-05-09-092737", w: [500, 1000, 1304] },
+      { src: "media/hackme/screenshot-2026-05-09-092805", w: [500, 667] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -131,20 +131,20 @@ const PROJECTS_ALL = [
     summary: "Safety-style pacing firmware on STM32: Simulink state machines, deterministic timing, and a Python device communicator for live parameter changes.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: "media/pacemaker/01.webp",
+    coverImage: { src: "media/pacemaker/screenshot-2026-05-08-142712", w: [500, 1000, 1052] },
     gallery: [
-      "media/pacemaker/02.webp",
-      "media/pacemaker/03.webp",
-      "media/pacemaker/04.webp",
-      "media/pacemaker/05.webp",
-      "media/pacemaker/06.webp",
-      "media/pacemaker/01.webp",
-      "media/pacemaker/07.webp",
-      "media/pacemaker/08.webp",
-      "media/pacemaker/09.webp",
-      "media/pacemaker/10.webp",
-      "media/pacemaker/11.webp",
-      "media/pacemaker/12.webp"
+      { src: "media/pacemaker/screenshot-2026-05-08-142001", w: [500, 1000, 1600, 2144] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142323", w: [500, 1000, 1600, 2124] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142401", w: [500, 1000, 1600, 1633] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142408", w: [500, 1000, 1600, 1831] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142423", w: [500, 1000, 1600, 1790] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142712", w: [500, 1000, 1052] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142721", w: [215] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142736", w: [500, 1000, 1030] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142804", w: [500, 1000, 1153] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142810", w: [52] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142822", w: [500, 1000, 1163] },
+      { src: "media/pacemaker/screenshot-2026-05-08-142918", w: [500, 1000, 1395] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
@@ -173,14 +173,14 @@ const PROJECTS_ALL = [
     summary: "Embedded firmware work on an astrocytes-related neural implant: sensor read paths, low-power timing, and bench validation against scope traces.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: "media/astrocytes/01.webp",
+    coverImage: { src: "media/austoristhes/screenshot-120", w: [500, 1000, 1600, 1835] },
     gallery: [
-      "media/astrocytes/02.webp",
-      "media/astrocytes/01.webp",
-      "media/astrocytes/03.webp",
-      "media/astrocytes/04.webp",
-      "media/astrocytes/05.webp",
-      "media/astrocytes/06.webp"
+      { src: "media/austoristhes/screenshot-117", w: [500, 1000, 1600, 2496] },
+      { src: "media/austoristhes/screenshot-120", w: [500, 1000, 1600, 1835] },
+      { src: "media/austoristhes/screenshot-126", w: [500, 1000, 1244] },
+      { src: "media/austoristhes/screenshot-127", w: [500, 918] },
+      { src: "media/austoristhes/screenshot-128", w: [500, 1000, 1600, 2137] },
+      { src: "media/austoristhes/screenshot-129", w: [500, 1000, 1147] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -211,11 +211,11 @@ const PROJECTS_ALL = [
     summary: "Patient-focused assistive device: mechanism, electronics, and control loop designed around the user's actual daily-use constraints.",
     artBg: "#E8E8E8",
     artFg: "#111111",
-    coverImage: "media/assistive-device/01.webp",
+    coverImage: { src: "media/dp4-assistive-device-for-a-patient/screenshot-160", w: [500, 1000, 1504] },
     gallery: [
-      "media/assistive-device/02.webp",
-      "media/assistive-device/01.webp",
-      "media/assistive-device/03.webp"
+      { src: "media/dp4-assistive-device-for-a-patient/screenshot-159", w: [500, 1000, 1540] },
+      { src: "media/dp4-assistive-device-for-a-patient/screenshot-160", w: [500, 1000, 1504] },
+      { src: "media/dp4-assistive-device-for-a-patient/screenshot-161", w: [500, 1000, 1184] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -246,17 +246,17 @@ const PROJECTS_ALL = [
     summary: "Two automation builds in one project — a motorized gear-shift assist and a fridge automation rig, both driven by sensors and embedded control.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: "media/automation/01.webp",
+    coverImage: { src: "media/dp3-gear-and-frige-autmation/screenshot-165", w: [500, 763] },
     gallery: [
-      "media/automation/02.webp",
-      "media/automation/01.webp",
-      "media/automation/03.webp",
-      "media/automation/04.webp",
-      "media/automation/05.webp",
-      "media/automation/06.webp",
-      "media/automation/07.webp",
-      "media/automation/08.webp",
-      "media/automation/09.webp"
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-163", w: [500, 1000, 1600, 1745] },
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-165", w: [500, 763] },
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-166", w: [500, 1000, 1553] },
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-167", w: [500, 1000, 1324] },
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-172", w: [500, 1000, 1600, 1703] },
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-173", w: [500, 1000, 1287] },
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-174", w: [500, 1000, 1367] },
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-175", w: [500, 1000, 1392] },
+      { src: "media/dp3-gear-and-frige-autmation/screenshot-176", w: [500, 1000, 1271] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -290,12 +290,12 @@ const PROJECTS_ALL = [
     summary: "Sumo-style autonomous robot: edge sensing, opponent detection, and drive logic tuned through test matches — 3rd in bracket.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: "media/sumo/01.webp",
+    coverImage: { src: "media/sumo/sumo-cover", w: [500, 1000, 1024] },
     gallery: [
-      "media/sumo/01.webp",
-      "media/sumo/02.webp",
-      "media/sumo/03.webp",
-      "media/sumo/04.webp"
+      { src: "media/sumo/sumo-cover", w: [500, 1000, 1024] },
+      { src: "media/sumo/sumo-portrait-trophy", w: [500, 768] },
+      { src: "media/sumo/sumo-arena", w: [500, 1000, 1024] },
+      { src: "media/sumo/sumo-chassis-front", w: [500, 1000, 1024] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -327,30 +327,30 @@ const PROJECTS_ALL = [
     summary: "Python workshop built around real EEG brain data: filtering into frequency bands, plotting raw versus filtered signals, and rendering topographic brain maps with MNE-Python.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: "media/signal-processing/01.webp",
+    coverImage: { src: "media/signal-processing/screenshot-2025-05-15-134312", w: [500, 704] },
     gallery: [
-      "media/signal-processing/02.webp",
-      "media/signal-processing/03.webp",
-      "media/signal-processing/04.webp",
-      "media/signal-processing/05.webp",
-      "media/signal-processing/06.webp",
-      "media/signal-processing/07.webp",
-      "media/signal-processing/08.webp",
-      "media/signal-processing/01.webp",
-      "media/signal-processing/09.webp",
-      "media/signal-processing/10.webp",
-      "media/signal-processing/11.webp",
-      "media/signal-processing/12.webp",
-      "media/signal-processing/13.webp",
-      "media/signal-processing/14.webp",
-      "media/signal-processing/15.webp",
-      "media/signal-processing/16.webp",
-      "media/signal-processing/17.webp",
-      "media/signal-processing/18.webp",
-      "media/signal-processing/19.webp",
-      "media/signal-processing/20.webp",
-      "media/signal-processing/21.webp",
-      "media/signal-processing/22.webp"
+      { src: "media/signal-processing/screenshot-2025-05-14-234408", w: [500, 1000, 1600, 2274] },
+      { src: "media/signal-processing/screenshot-2025-05-15-102222", w: [500, 1000, 1600, 2371] },
+      { src: "media/signal-processing/screenshot-2025-05-15-122326", w: [500, 634] },
+      { src: "media/signal-processing/screenshot-2025-05-15-122819", w: [500, 958] },
+      { src: "media/signal-processing/screenshot-2025-05-15-123430", w: [500, 1000, 1225] },
+      { src: "media/signal-processing/screenshot-2025-05-15-123516", w: [500, 1000, 1180] },
+      { src: "media/signal-processing/screenshot-2025-05-15-124149", w: [500, 1000, 1082] },
+      { src: "media/signal-processing/screenshot-2025-05-15-134312", w: [500, 704] },
+      { src: "media/signal-processing/screenshot-2025-05-15-134337", w: [500, 1000, 1600, 2479] },
+      { src: "media/signal-processing/screenshot-2025-05-15-134657", w: [500, 1000, 1089] },
+      { src: "media/signal-processing/screenshot-2025-05-15-134714", w: [500, 1000, 1090] },
+      { src: "media/signal-processing/screenshot-2025-05-15-134741", w: [500, 1000, 1600, 2042] },
+      { src: "media/signal-processing/screenshot-2025-05-15-135239", w: [500, 1000, 1095] },
+      { src: "media/signal-processing/screenshot-2025-05-15-140214", w: [27] },
+      { src: "media/signal-processing/screenshot-2025-05-15-141005", w: [500, 767] },
+      { src: "media/signal-processing/screenshot-2025-05-15-142749", w: [500, 986] },
+      { src: "media/signal-processing/screenshot-2025-05-15-153841", w: [287] },
+      { src: "media/signal-processing/screenshot-2025-05-15-153852", w: [241] },
+      { src: "media/signal-processing/screenshot-2025-05-16-213430", w: [500, 738] },
+      { src: "media/signal-processing/screenshot-2025-05-17-121315", w: [500, 1000, 1085] },
+      { src: "media/signal-processing/screenshot-2025-05-17-121326", w: [500, 941] },
+      { src: "media/signal-processing/screenshot-2025-05-17-121335", w: [500, 937] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -385,11 +385,11 @@ const PROJECTS_ALL = [
     summary: "Playable Tetris on Arduino + LED matrix: game loop, collisions, line clears, and tight redraw timing without an OS.",
     artBg: "#E8E8E8",
     artFg: "#111111",
-    coverImage: "media/tetris/01.webp",
+    coverImage: { src: "media/tetris/image", w: [500, 1000, 1206] },
     gallery: [
-      "media/tetris/01.webp",
-      "media/tetris/02.webp",
-      "media/tetris/03.webp"
+      { src: "media/tetris/image", w: [500, 1000, 1206] },
+      { src: "media/tetris/image-7", w: [500, 769] },
+      { src: "media/tetris/image-8", w: [500, 1000, 1600, 2166] }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -454,25 +454,37 @@ function assetUrl(storagePath) {
     .join("/");
 }
 
-/** Every image under media/ is generated in three tiers:
- *    NN-sm.webp    longest side 1000  — gallery grid cells
- *    NN.webp       longest side 1600  — card covers / larger viewports
- *    NN-full.webp  original pixels    — lightbox, where detail is the point
- *  The stored path is the middle tier; the others are derived from it. */
-function mediaTier(basePath, tier) {
-  return tier ? String(basePath).replace(/\.webp$/, `-${tier}.webp`) : String(basePath);
+/* Image entries carry the widths that were actually generated for them:
+ *    { src: "media/pacemaker/dcm-params", w: [500, 1000, 1600, 2144] }
+ * Files are named <src>-<width>.webp, so every candidate rebuilds from that pair
+ * and nothing has to guess whether a given size exists. Run tools/gen_media.py
+ * after adding an image and copy the entry it prints into PROJECTS_ALL. */
+function mediaFile(img, width) {
+  return `${img.src}-${width}.webp`;
+}
+
+function mediaSrcset(img) {
+  return img.w.map((w) => `${mediaFile(img, w)} ${w}w`).join(", ");
+}
+
+/** Smallest generated candidate at or above the slot width, else the largest. */
+function mediaPick(img, targetWidth) {
+  return mediaFile(img, img.w.find((w) => w >= targetWidth) || img.w[img.w.length - 1]);
+}
+
+/** Original resolution — what the lightbox should show. */
+function mediaLargest(img) {
+  return mediaFile(img, img.w[img.w.length - 1]);
 }
 
 function workCardArt(p) {
   if (p.coverImage) {
     const alt = escAttr(`${p.title} preview`);
-    const sm = mediaTier(p.coverImage, "sm");
-    // No width/height here: .work-art already reserves the box with aspect-ratio,
-    // and the image is positioned absolutely, so the attributes bought nothing
-    // and the old hardcoded 800x500 was wrong for portrait covers anyway.
-    return `<img class="work-cover-img" src="${p.coverImage}"
-      srcset="${sm} 1000w, ${p.coverImage} 1600w"
-      sizes="(max-width: 900px) 92vw, 52vw"
+    // No width/height here: .work-art already reserves the box with aspect-ratio
+    // and the image is positioned absolutely, so the attributes bought nothing.
+    return `<img class="work-cover-img" src="${mediaPick(p.coverImage, 1600)}"
+      srcset="${mediaSrcset(p.coverImage)}"
+      sizes="(max-width: 900px) 92vw, 45vw"
       alt="${alt}" loading="lazy" decoding="async" />`;
   }
   return `<div class="art-illu">${p.art}</div>`;
@@ -533,13 +545,13 @@ function projectGalleryHtml(p) {
       ${p.art}
     </div>`;
   }
-  // Grid cells are ~250px wide, so the small tier is what almost everyone loads.
-  // data-full carries the original-resolution file for the lightbox only.
-  const imgs = shots.map((src) =>
-    `<img src="${mediaTier(src, "sm")}"
-      srcset="${mediaTier(src, "sm")} 1000w, ${src} 1600w"
-      sizes="(max-width: 900px) 45vw, 250px"
-      data-full="${mediaTier(src, "full")}"
+  // Grid cells are ~250 CSS px, so most visitors only ever fetch the 500w file.
+  // data-full carries the original-resolution one, for the lightbox alone.
+  const imgs = shots.map((img) =>
+    `<img src="${mediaPick(img, 500)}"
+      srcset="${mediaSrcset(img)}"
+      sizes="(max-width: 900px) 45vw, 300px"
+      data-full="${mediaLargest(img)}"
       alt="" class="project-gallery-img" loading="lazy" decoding="async"
       title="Click to enlarge" />`
   ).join("");
