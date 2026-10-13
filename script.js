@@ -4,10 +4,10 @@
 const PROJECTS_ALL = [
   {
     id: "narcan",
-    title: "Narcan (naloxone) dispenser",
-    tagline: "Mechanism + control · 3P04",
-    period: "2025",
-    summary: "Emergency-access dispenser prototype: mechanical dosing path, sensors, and Arduino firmware tuned for reliable timing and safe actuation.",
+    title: "NaloPulse — Wearable Overdose Response",
+    tagline: "Wearable medical device · IBEHS 3P04",
+    period: "Winter 2026",
+    summary: "A wearable that detects an opioid overdose and delivers naloxone with nobody else present — breathing rate from a VOC sensor, a threshold detector, and a servo-released spring that fires a commercial Narcan canister.",
     artBg: "#ECECEC",
     artFg: "#111111",
     coverImage: { src: "media/narcan-decpencer/image-7", w: [500, 934] },
@@ -29,16 +29,25 @@ const PROJECTS_ALL = [
         <circle cx="160" cy="178" r="10" fill="currentColor" opacity="0.15"/>
         <path d="M70 190h180" opacity="0.35"/>
       </svg>`,
-    tags: ["Arduino", "C/C++", "Sensors", "Actuation", "Biomedical"],
-    problem: "Deliver a naloxone dispenser that is fast to access in an emergency, mechanically dependable, and straightforward to verify in lab demos.",
+    tags: ["Arduino", "Embedded C/C++", "Sensor Signal Processing", "Servo Actuation", "3D Printing", "Design Verification"],
+    problem: "Naloxone reverses an opioid overdose and is free at most Ontario pharmacies, but it cannot be self-administered once you are unconscious — which is precisely when it is needed. Over 53,000 overdose deaths were recorded in Canada between 2016 and 2025. The question we took on was whether a wearable could close that gap on its own: detect respiratory depression, deliver the dose, and call for help, while staying under a $30 build cost and inside the footprint of a standard naloxone kit.",
+    role: "I owned the sense-decide-actuate path and the testing that judged it. That meant the sensing firmware and the breathing-rate algorithm, the servo-and-spring mechanism that fires the canister, and running both verification tests — including the one that failed. Risk and economic analysis were handled by the rest of the team.",
     approach: [
-      "Iterated on the dispensing mechanism and fixturing so doses release predictably under load.",
-      "Wrote Arduino firmware for sensing, debounced inputs, and coordinated actuator timing.",
-      "Logged integration decisions (electrical ↔ mechanical ↔ software) so the team could debug quickly."
+      "Derived breathing rate from exhalation peaks in an SGP30 VOC signal instead of adding a dedicated respiration sensor, which kept the bill of materials inside the $30 target.",
+      "Wrote the detection firmware: peak picking on the live signal, breaths per minute over a rolling window, and a threshold classifier that reads anything under 7 breaths per minute as an overdose.",
+      "Built the delivery mechanism around a commercial Narcan canister rather than loose drug, so the device consumes the same cartridge already distributed in Canadian kits. A servo releases a compressed spring that depresses it.",
+      "3D-printed a housing that fixes the canister relative to the nozzle, so compression force and spray angle repeat exactly instead of varying with how hard a person presses — the variable that would otherwise dominate the delivery test.",
+      "Wrote both verification tests to a numeric pass criterion before running them: 95% classification accuracy across trials, and visible deposition inside the 3–6 cm band of a simulated nasal passage."
+    ],
+    results: [
+      "Detection failed its criterion — 80% accuracy over 10 trials: 5 true positives, 3 true negatives, 2 false positives and, notably, 0 false negatives. The target was 95%.",
+      "The cause was the sensor, not the algorithm. The SGP30's latency and low sample rate smeared the exhalation peaks the detector keys on; when peaks resolved cleanly the classification was correct, and no simulated overdose was ever missed. The fix is a higher-rate airflow or CO₂ sensor and a re-run, which isolates the failure to one replaceable part.",
+      "Delivery passed on depth and failed on dose. Spray reached past the 3 cm mark into the 3–6 cm target band, but the servo lacked the torque to fully depress the canister, leaving measurable naloxone behind after actuation — so the mechanism needs a higher-torque motor before it can claim a full dose.",
+      "Both tests had limits worth naming: respiratory depression was simulated by a healthy subject breathing to a metronome, and deposition was measured on flat paper rather than real nasal geometry. Neither result would stand as clinical validation, and a pass would not have changed that."
     ],
     impact: [
-      "End-to-end prototype: sense → decide → actuate, repeatable across trials.",
-      "Firmware structure that can extend to richer sensing or locking logic later."
+      "Turned a failed requirement into a component decision rather than a dead end — the detection pipeline held up, the sensor choice did not, and the report says so.",
+      "Both of the hardware substitutions the next iteration needs came out of tests I designed and ran, which is the part of the project I would defend hardest."
     ],
     links: []
   },
@@ -127,8 +136,8 @@ const PROJECTS_ALL = [
     id: "pacemaker",
     title: "Pacemaker Control System",
     tagline: "Safety-Critical Embedded · 3K04",
-    period: "Oct 2024 — Dec 2024",
-    summary: "Safety-style pacing firmware on STM32: Simulink state machines, deterministic timing, and a Python device communicator for live parameter changes.",
+    period: "Fall 2025",
+    summary: "Pacing firmware for a cardiac pulse generator on the NXP FRDM-K64F: Stateflow state machines for nine pacing modes, deterministic pulse timing, and a UART link for retuning parameters on a running device.",
     artBg: "#ECECEC",
     artFg: "#111111",
     coverImage: { src: "media/pacemaker/screenshot-2026-05-08-142712", w: [500, 1000, 1052] },
@@ -151,16 +160,25 @@ const PROJECTS_ALL = [
         <path d="M0 130 L70 130 L85 130 L100 90 L115 170 L130 60 L145 180 L160 130 L320 130" />
         <path d="M210 90 C210 75 195 60 180 60 C170 60 162 67 160 78 C158 67 150 60 140 60 C125 60 110 75 110 90 C110 115 160 145 160 145 C160 145 210 115 210 90 Z" opacity="0.18" fill="currentColor"/>
       </svg>`,
-    tags: ["STM32", "Simulink", "Python", "UART", "Embedded"],
-    problem: "Build a pacemaker control system that satisfies safety, real-time, and reconfigurability requirements typical of regulated medical devices.",
+    tags: ["Simulink / Stateflow", "NXP FRDM-K64F", "Model-Based Design", "UART", "Real-Time Control", "Medical Devices"],
+    problem: "A pacemaker is a hard real-time device where a late pulse is a safety event, and where a clinician has to be able to retune pacing parameters on a device that is already running. The brief mirrored how regulated medical software is actually produced: requirements written and traced first, modules defined by what they hide rather than what they do, and every pacing mode signed off against a numeric pass band instead of looking right on a scope.",
+    role: "I worked the embedded side of a six-person team. The Stateflow pacing charts, the input-processing layer feeding them, the hardware I/O mapping on the K64F, and the UART link carrying parameters between the board and the DCM were mine. Teammates built the DCM front end — I owned the firmware and the serial interface it talks to.",
     approach: [
-      "Modeled and validated finite state machines for pacing logic in Simulink before generating embedded code.",
-      "Implemented firmware on STM32 with attention to deterministic timing and safe failure modes.",
-      "Designed a UART communication interface to a Python-based Device Communicator (DCM) for live configuration of pacing parameters."
+      "Modelled each pacing mode as a Stateflow chart — charge, discharge, refractory — and generated embedded code from the model, so the pacing logic could be reviewed as a state diagram before it ever ran on hardware.",
+      "Built the layer underneath: atrial and ventricular rate detection, pulse-period measurement against the refractory window, a watchdog timer for missed beats, and the AV-delay and duty-cycle maths each mode depends on.",
+      "Kept every pin behind two hardware-hiding modules, so the control logic depends only on parameter values and never on a pin number. All FRDM-K64F assignments live in one place; adding a sensor later meant touching that module, not the pacing charts.",
+      "Translated clinical parameters into hardware terms — pacing amplitude into a PWM duty cycle against the capacitor's peak voltage, sensing sensitivity into a comparator reference PWM — so a 3.75 V atrial amplitude or a 2.75 mV detection threshold is a value the clinician sets rather than a constant in the code.",
+      "Wrote the UART interface: byte-headed messages from the DCM parsed into the live parameter set, so pacing mode, rate limits, amplitudes and refractory periods can all change without restarting the device."
+    ],
+    results: [
+      "AOO and VOO verified on a HeartView bench simulator at a 50 ppm lower rate limit: pace-to-pace interval held 1200 ms inside the ±8 ms pass band, with the unused chamber staying silent.",
+      "AAI and VVI verified for inhibition — no pacing at 100 or 50 BPM intrinsic rate, pacing starting the moment intrinsic rate dropped to 49 BPM, and single-pulse captures showing the full charge–discharge return to baseline.",
+      "Hysteresis verified as a separate case: with the hysteresis rate limit at 45 BPM the device stayed inhibited at 45, began pacing at 44, and resumed at the 50 ppm lower rate limit rather than at the hysteresis rate.",
+      "Nine modes specified and designed — the four fundamentals plus the rate-adaptive variants and DDDR; four verified on hardware inside the deliverable window."
     ],
     impact: [
-      "Delivered an end-to-end system meeting course-defined safety-critical requirements.",
-      "Built a workflow that mirrors how regulated medical embedded software is actually designed."
+      "The hardware-hiding split paid for itself: extending to rate-adaptive pacing touched the control charts and the accelerometer input, while the pin mapping and the DCM interface stayed where they were.",
+      "Closest I have worked to how regulated embedded software is genuinely built — requirements before code, modules defined by their secrets, and each mode accepted or rejected against a number."
     ],
     links: [{ label: "GitHub", url: "https://github.com/sina-fz" }],
     categories: ["embedded", "software"]
@@ -573,10 +591,22 @@ function projectDetailHtml(p) {
       <p>${p.problem}</p>
     </div>
 
+    ${p.role ? `
+    <div class="modal-section">
+      <h4>My Role</h4>
+      <p>${p.role}</p>
+    </div>` : ""}
+
     <div class="modal-section">
       <h4>My Approach</h4>
       <ul>${p.approach.map(a => `<li>${a}</li>`).join("")}</ul>
     </div>
+
+    ${p.results && p.results.length ? `
+    <div class="modal-section">
+      <h4>Verification &amp; Results</h4>
+      <ul>${p.results.map(r => `<li>${r}</li>`).join("")}</ul>
+    </div>` : ""}
 
     <div class="modal-section">
       <h4>Impact</h4>
