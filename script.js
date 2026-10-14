@@ -10,17 +10,24 @@ const PROJECTS_ALL = [
     summary: "A wearable that detects an opioid overdose and delivers naloxone with nobody else present — breathing rate from a VOC sensor, a threshold detector, and a servo-released spring that fires a commercial Narcan canister.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: { src: "media/narcan-decpencer/image-7", w: [500, 934] },
+    coverImage: { src: "media/narcan-decpencer/screenshot-2026-05-08-144925", w: [500, 1000, 1170] },
     categories: ["embedded", "mechanical"],
     codeFile: "Progects_Imgs/Narcan Decpencer/3P04_Final_code.ino",
+    // Ordered as a narrative: how detection was tested, the pipeline running
+    // normally, the overdose case firing, then the delivery side.
     gallery: [
-      { src: "media/narcan-decpencer/image-7", w: [500, 934] },
-      { src: "media/narcan-decpencer/screenshot-2026-05-08-144841", w: [500, 1000, 1594] },
-      { src: "media/narcan-decpencer/screenshot-2026-05-08-144925", w: [500, 1000, 1170] },
-      { src: "media/narcan-decpencer/screenshot-2026-05-08-144951", w: [500, 1000, 1547] },
-      { src: "media/narcan-decpencer/screenshot-2026-05-08-145024", w: [500, 1000, 1333] },
-      { src: "media/narcan-decpencer/screenshot-2026-05-09-092002", w: [500, 1000, 1263] },
-      { src: "media/narcan-decpencer/screenshot-2026-05-09-092030", w: [500, 1000, 1247] }
+      { src: "media/narcan-decpencer/screenshot-2026-05-08-144841", w: [500, 1000, 1594],
+        caption: "Verification rig for the detection test — sensor held at a fixed distance, breathing paced by a metronome, peaks logged to CSV and scored against a confusion matrix." },
+      { src: "media/narcan-decpencer/screenshot-2026-05-09-092002", w: [500, 1000, 1263],
+        caption: "Startup and baseline. Once the SGP30 stabilises the detector counts exhalations and holds an estimated rate around 10–12 breaths per minute." },
+      { src: "media/narcan-decpencer/screenshot-2026-05-09-092030", w: [500, 1000, 1247],
+        caption: "The case the device exists for: estimated rate falls to 3.8 breaths/min, the 7 breaths/min threshold trips, and the servo fires the canister." },
+      { src: "media/narcan-decpencer/screenshot-2026-05-08-144925", w: [500, 1000, 1170],
+        caption: "3D-printed housing. It holds a commercial Narcan canister in a fixed position so the spring compresses it identically on every actuation." },
+      { src: "media/narcan-decpencer/screenshot-2026-05-08-144951", w: [500, 1000, 1547],
+        caption: "Deposition test setup — spray measured against a depth scale marked at the 3 cm and 6 cm nasal-mucosa target band." },
+      { src: "media/narcan-decpencer/screenshot-2026-05-08-145024", w: [500, 1000, 1333],
+        caption: "The delivery test running: nozzle at the 0 cm line, droplets left to settle on paper before the maximum depth is measured." }
     ],
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -587,13 +594,18 @@ function projectGalleryHtml(p) {
   if (!shots.length) return "";
   // Grid cells are ~250 CSS px, so most visitors only ever fetch the 500w file.
   // data-full carries the original-resolution one, for the lightbox alone.
-  const imgs = shots.map((img) =>
-    `<img src="${mediaPick(img, 500)}"
-      srcset="${mediaSrcset(img)}"
-      sizes="(max-width: 900px) 45vw, 300px"
-      data-full="${mediaLargest(img)}"
-      alt="" class="project-gallery-img" loading="lazy" decoding="async"
-      title="Click to enlarge" />`
+  // Captions are what turn a screenshot dump into documentation — without them a
+  // reader sees a terminal window and has no idea what they are looking at.
+  const imgs = shots.map((img) => `
+    <figure class="project-figure">
+      <img src="${mediaPick(img, 1000)}"
+        srcset="${mediaSrcset(img)}"
+        sizes="(max-width: 860px) 92vw, 520px"
+        data-full="${mediaLargest(img)}"
+        alt="${escAttr(img.caption || "")}" class="project-gallery-img"
+        loading="lazy" decoding="async" title="Click to enlarge" />
+      ${img.caption ? `<figcaption>${img.caption}</figcaption>` : ""}
+    </figure>`
   ).join("");
   return `
     <section class="project-gallery-section">

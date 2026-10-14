@@ -1796,27 +1796,51 @@ body[data-projects-page="detail"] .section { padding-top: 2.5rem; }
 }
 
 .project-gallery-wrap {
-  margin: 0 -3rem 2rem;
+  margin: 0;
 }
 
 .project-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem 1.6rem;
 }
 
+.project-figure { margin: 0; }
+
+/* `contain` on a matted tile, not `cover`. Half of these are screenshots and
+   diagrams — cropping them to a uniform box cuts text off mid-sentence, which
+   is most of what made the old grid look careless. */
+.project-figure img,
 .project-gallery-img {
   width: 100%;
-  height: 260px;
-  object-fit: cover;
-  object-position: center;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
   display: block;
+  padding: 0.6rem;
   background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
   cursor: zoom-in;
-  transition: opacity 0.2s var(--ease);
+  transition: border-color 0.25s var(--ease);
 }
 
-.project-gallery-img:hover { opacity: 0.92; }
+.project-figure img:hover { border-color: var(--ink); }
+
+.project-figure figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* The hero sets its own frame, so it opts out of the tile treatment. */
+.project-hero img {
+  aspect-ratio: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 6px;
+}
 
 /* Full-size photo (modal filmstrip click) */
 body.gallery-lightbox-open {
@@ -2300,9 +2324,8 @@ body.gallery-lightbox-open {
   .section { padding: 6rem 0 2rem; }
   .modal-content { padding: 2rem 1.5rem 1.5rem; }
   .modal-art { margin: 0 -1.5rem 1.5rem; height: 180px; }
-  .project-gallery-wrap { margin: 0 -1.5rem 1.5rem; }
-  .project-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.4rem; }
-  .project-gallery-img { height: 180px; }
+  .project-gallery-wrap { margin: 0; }
+  .project-gallery-grid { grid-template-columns: 1fr; gap: 1.6rem; }
   .work-body { padding: 2rem 1.6rem; }
 }
 
