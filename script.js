@@ -4,29 +4,31 @@
 const PROJECTS_ALL = [
   {
     id: "narcan",
-    title: "NaloPulse — Wearable Overdose Response",
+    title: "NaloPulse",
     tagline: "Wearable medical device · IBEHS 3P04",
     period: "Winter 2026",
-    summary: "A wearable that detects an opioid overdose and delivers naloxone with nobody else present — breathing rate from a VOC sensor, a threshold detector, and a servo-released spring that fires a commercial Narcan canister.",
+    summary: "A wearable that detects an opioid overdose and delivers naloxone with nobody else present: breathing rate from a VOC sensor, a threshold detector, and a servo-released spring that fires a commercial Narcan canister.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: { src: "media/narcan-decpencer/screenshot-2026-05-08-144925", w: [500, 1000, 1170] },
+    coverImage: { src: "media/narcan-decpencer/device-assembled", w: [500, 990] },
     categories: ["embedded", "mechanical"],
     codeFile: "Progects_Imgs/Narcan Decpencer/3P04_Final_code.ino",
     // Each figure sits with the claim it supports rather than in a pile at the end.
     gallery: [],
     figures: {
       approach: [
+        { src: "media/narcan-decpencer/screenshot-2026-05-08-144925", w: [500, 1000, 1170],
+          caption: "The printed housing on its own. It holds a commercial Narcan canister in a fixed position so the spring compresses it identically on every actuation." },
         { src: "media/narcan-decpencer/screenshot-2026-05-08-144841", w: [500, 1000, 1594],
-          caption: "Verification rig for the detection test — sensor at a fixed distance, breathing paced by a metronome, peaks logged to CSV and scored against a confusion matrix." },
+          caption: "Verification rig for the detection test: sensor at a fixed distance, breathing paced by a metronome, peaks logged to CSV and scored against a confusion matrix." },
         { src: "media/narcan-decpencer/screenshot-2026-05-08-144951", w: [500, 1000, 1547],
-          caption: "Deposition test setup — spray measured against a depth scale marked at the 3 cm and 6 cm nasal-mucosa target band." }
+          caption: "Deposition test setup: spray measured against a depth scale marked at the 3 cm and 6 cm nasal-mucosa target band." }
       ],
       results: [
         { src: "media/narcan-decpencer/screenshot-2026-05-09-092002", w: [500, 1000, 1263],
-          caption: "Startup and baseline: once the SGP30 stabilises, the detector counts exhalations and holds an estimated rate around 10–12 breaths per minute." },
+          caption: "Startup and baseline. Once the SGP30 stabilises, the detector counts exhalations and holds an estimated rate around 10 to 12 breaths per minute." },
         { src: "media/narcan-decpencer/screenshot-2026-05-09-092030", w: [500, 1000, 1247],
-          caption: "The case the device exists for — estimated rate falls to 3.8 breaths/min, the 7 breaths/min threshold trips, and the servo fires the canister." },
+          caption: "The case the device exists for: estimated rate falls to 3.8 breaths/min, the 7 breaths/min threshold trips, and the servo fires the canister." },
         { src: "media/narcan-decpencer/screenshot-2026-05-08-145024", w: [500, 1000, 1333],
           caption: "The delivery test running: nozzle at the 0 cm line, droplets left to settle on paper before maximum depth is measured." }
       ]
@@ -39,29 +41,23 @@ const PROJECTS_ALL = [
         <path d="M70 190h180" opacity="0.35"/>
       </svg>`,
     tags: ["Arduino", "Embedded C/C++", "Sensor Signal Processing", "Servo Actuation", "3D Printing", "Design Verification"],
-    problem: "Naloxone reverses an opioid overdose and is free at most Ontario pharmacies, but it cannot be self-administered once you are unconscious — which is precisely when it is needed. Over 53,000 overdose deaths were recorded in Canada between 2016 and 2025. The question we took on was whether a wearable could close that gap on its own: detect respiratory depression, deliver the dose, and call for help, while staying under a $30 build cost and inside the footprint of a standard naloxone kit.",
-    facts: [
-      { label: "My role", value: "Detection, mechanism &amp; verification" },
-      { label: "Team", value: "4 engineers" },
-      { label: "Platform", value: "Arduino + SGP30 VOC sensor" },
-      { label: "Outcome", value: "1 of 2 tests passed" }
-    ],
-    role: "I owned the sense-decide-actuate path and the testing that judged it. That meant the sensing firmware and the breathing-rate algorithm, the servo-and-spring mechanism that fires the canister, and running both verification tests — including the one that failed. Risk and economic analysis were handled by the rest of the team.",
+    problem: "Naloxone reverses an opioid overdose and is free at most Ontario pharmacies, but it cannot be self-administered once you are unconscious, which is precisely when it is needed. Over 53,000 overdose deaths were recorded in Canada between 2016 and 2025. The question we took on was whether a wearable could close that gap on its own: detect respiratory depression, deliver the dose, and call for help, while staying under a $30 build cost and inside the footprint of a standard naloxone kit.",
+    role: "On a four-person team I owned the part of the device that decides and acts. I wrote the sensing firmware and the breathing-rate algorithm that judges whether someone is overdosing, and I designed the servo and spring mechanism that delivers the dose. I also wrote and ran both verification tests, which is where the hardware limits surfaced. Risk and economic analysis were covered by my teammates.",
     approach: [
       "Derived breathing rate from exhalation peaks in an SGP30 VOC signal instead of adding a dedicated respiration sensor, which kept the bill of materials inside the $30 target.",
       "Wrote the detection firmware: peak picking on the live signal, breaths per minute over a rolling window, and a threshold classifier that reads anything under 7 breaths per minute as an overdose.",
       "Built the delivery mechanism around a commercial Narcan canister rather than loose drug, so the device consumes the same cartridge already distributed in Canadian kits. A servo releases a compressed spring that depresses it.",
-      "3D-printed a housing that fixes the canister relative to the nozzle, so compression force and spray angle repeat exactly instead of varying with how hard a person presses — the variable that would otherwise dominate the delivery test.",
-      "Wrote both verification tests to a numeric pass criterion before running them: 95% classification accuracy across trials, and visible deposition inside the 3–6 cm band of a simulated nasal passage."
+      "3D-printed a housing that fixes the canister relative to the nozzle, so compression force and spray angle repeat exactly instead of varying with how hard a person presses. That was the variable that would otherwise have dominated the delivery test.",
+      "Wrote both verification tests to a numeric pass criterion before running them: 95% classification accuracy across trials, and visible deposition inside the 3 to 6 cm band of a simulated nasal passage."
     ],
     results: [
-      "Detection failed its criterion — 80% accuracy over 10 trials: 5 true positives, 3 true negatives, 2 false positives and, notably, 0 false negatives. The target was 95%.",
+      "Detection failed its criterion at 80% accuracy over 10 trials: 5 true positives, 3 true negatives, 2 false positives, and notably 0 false negatives. The target was 95%.",
       "The cause was the sensor, not the algorithm. The SGP30's latency and low sample rate smeared the exhalation peaks the detector keys on; when peaks resolved cleanly the classification was correct, and no simulated overdose was ever missed. The fix is a higher-rate airflow or CO₂ sensor and a re-run, which isolates the failure to one replaceable part.",
-      "Delivery passed on depth and failed on dose. Spray reached past the 3 cm mark into the 3–6 cm target band, but the servo lacked the torque to fully depress the canister, leaving measurable naloxone behind after actuation — so the mechanism needs a higher-torque motor before it can claim a full dose.",
+      "Delivery passed on depth and failed on dose. Spray reached past the 3 cm mark into the target band, but the servo lacked the torque to fully depress the canister, leaving measurable naloxone behind after actuation. The mechanism needs a higher-torque motor before it can claim a full dose.",
       "Both tests had limits worth naming: respiratory depression was simulated by a healthy subject breathing to a metronome, and deposition was measured on flat paper rather than real nasal geometry. Neither result would stand as clinical validation, and a pass would not have changed that."
     ],
     impact: [
-      "Turned a failed requirement into a component decision rather than a dead end — the detection pipeline held up, the sensor choice did not, and the report says so.",
+      "Turned a failed requirement into a component decision rather than a dead end. The detection pipeline held up, the sensor choice did not, and the report says so.",
       "Both of the hardware substitutions the next iteration needs came out of tests I designed and ran, which is the part of the project I would defend hardest."
     ],
     links: []
@@ -70,7 +66,7 @@ const PROJECTS_ALL = [
     id: "macbionic",
     title: "MacBionic Arm",
     tagline: "Embedded Lead · IEEE McMaster",
-    period: "Sep 2025 — Present",
+    period: "Sep 2025 to Present",
     summary: "Robotic arm with precise PID-controlled motion and a computer-vision pipeline that detects targets and executes grasp sequences.",
     artBg: "#ECECEC",
     artFg: "#111111",
@@ -109,7 +105,7 @@ const PROJECTS_ALL = [
   },
   {
     id: "hackme",
-    title: "HackMe — Cybersecurity Tool",
+    title: "HackMe Vulnerability Scanner",
     tagline: "1st Place · McMaster Engineering Competition",
     period: "Nov 2024",
     summary: "B2B vulnerability scanning tool that won 1st place out of 500+ engineering students and earned a provincial OEC selection.",
@@ -175,29 +171,23 @@ const PROJECTS_ALL = [
       </svg>`,
     tags: ["Simulink / Stateflow", "NXP FRDM-K64F", "Model-Based Design", "UART", "Real-Time Control", "Medical Devices"],
     problem: "A pacemaker is a hard real-time device where a late pulse is a safety event, and where a clinician has to be able to retune pacing parameters on a device that is already running. The brief mirrored how regulated medical software is actually produced: requirements written and traced first, modules defined by what they hide rather than what they do, and every pacing mode signed off against a numeric pass band instead of looking right on a scope.",
-    facts: [
-      { label: "My role", value: "Firmware &amp; serial interface" },
-      { label: "Team", value: "6 engineers" },
-      { label: "Platform", value: "NXP FRDM-K64F" },
-      { label: "Verified", value: "4 of 9 modes on hardware" }
-    ],
-    role: "I worked the embedded side of a six-person team. The Stateflow pacing charts, the input-processing layer feeding them, the hardware I/O mapping on the K64F, and the UART link carrying parameters between the board and the DCM were mine. Teammates built the DCM front end — I owned the firmware and the serial interface it talks to.",
+    role: "On a six-person team I owned the embedded side end to end: the Stateflow pacing charts, the input-processing layer that feeds them, the hardware I/O mapping on the K64F, and the UART link that carries parameters between the board and the DCM. My teammates built the DCM front end; everything running on the device, and the serial interface it speaks, was mine.",
     approach: [
-      "Modelled each pacing mode as a Stateflow chart — charge, discharge, refractory — and generated embedded code from the model, so the pacing logic could be reviewed as a state diagram before it ever ran on hardware.",
+      "Modelled each pacing mode as a Stateflow chart (charge, discharge, refractory) and generated embedded code from the model, so the pacing logic could be reviewed as a state diagram before it ever ran on hardware.",
       "Built the layer underneath: atrial and ventricular rate detection, pulse-period measurement against the refractory window, a watchdog timer for missed beats, and the AV-delay and duty-cycle maths each mode depends on.",
       "Kept every pin behind two hardware-hiding modules, so the control logic depends only on parameter values and never on a pin number. All FRDM-K64F assignments live in one place; adding a sensor later meant touching that module, not the pacing charts.",
-      "Translated clinical parameters into hardware terms — pacing amplitude into a PWM duty cycle against the capacitor's peak voltage, sensing sensitivity into a comparator reference PWM — so a 3.75 V atrial amplitude or a 2.75 mV detection threshold is a value the clinician sets rather than a constant in the code.",
+      "Translated clinical parameters into hardware terms: pacing amplitude became a PWM duty cycle against the capacitor's peak voltage, and sensing sensitivity became a comparator reference PWM. A 3.75 V atrial amplitude or a 2.75 mV detection threshold is a value the clinician sets rather than a constant in the code.",
       "Wrote the UART interface: byte-headed messages from the DCM parsed into the live parameter set, so pacing mode, rate limits, amplitudes and refractory periods can all change without restarting the device."
     ],
     results: [
       "AOO and VOO verified on a HeartView bench simulator at a 50 ppm lower rate limit: pace-to-pace interval held 1200 ms inside the ±8 ms pass band, with the unused chamber staying silent.",
-      "AAI and VVI verified for inhibition — no pacing at 100 or 50 BPM intrinsic rate, pacing starting the moment intrinsic rate dropped to 49 BPM, and single-pulse captures showing the full charge–discharge return to baseline.",
+      "AAI and VVI verified for inhibition: no pacing at 100 or 50 BPM intrinsic rate, pacing starting the moment intrinsic rate dropped to 49 BPM, and single-pulse captures showing the full charge and discharge return to baseline.",
       "Hysteresis verified as a separate case: with the hysteresis rate limit at 45 BPM the device stayed inhibited at 45, began pacing at 44, and resumed at the 50 ppm lower rate limit rather than at the hysteresis rate.",
-      "Nine modes specified and designed — the four fundamentals plus the rate-adaptive variants and DDDR; four verified on hardware inside the deliverable window."
+      "Nine modes specified and designed: the four fundamentals plus the rate-adaptive variants and DDDR. Four were verified on hardware inside the deliverable window."
     ],
     impact: [
       "The hardware-hiding split paid for itself: extending to rate-adaptive pacing touched the control charts and the accelerometer input, while the pin mapping and the DCM interface stayed where they were.",
-      "Closest I have worked to how regulated embedded software is genuinely built — requirements before code, modules defined by their secrets, and each mode accepted or rejected against a number."
+      "Closest I have worked to how regulated embedded software is genuinely built: requirements before code, modules defined by their secrets, and each mode accepted or rejected against a number."
     ],
     links: [{ label: "GitHub", url: "https://github.com/sina-fz" }],
     categories: ["embedded", "software"]
@@ -206,7 +196,7 @@ const PROJECTS_ALL = [
     id: "astrocytes",
     title: "Astrocytes Implant Firmware",
     tagline: "Implant firmware contributor",
-    period: "2024 — 2025",
+    period: "2024 to 2025",
     summary: "Embedded firmware work on an astrocytes-related neural implant: sensor read paths, low-power timing, and bench validation against scope traces.",
     artBg: "#ECECEC",
     artFg: "#111111",
@@ -280,7 +270,7 @@ const PROJECTS_ALL = [
     title: "Gear Shifter & Fridge Automation",
     tagline: "Design Project · DP3",
     period: "2024",
-    summary: "Two automation builds in one project — a motorized gear-shift assist and a fridge automation rig, both driven by sensors and embedded control.",
+    summary: "Two automation builds in one project: a motorized gear-shift assist and a fridge automation rig, both driven by sensors and embedded control.",
     artBg: "#ECECEC",
     artFg: "#111111",
     coverImage: { src: "media/dp3-gear-and-frige-autmation/screenshot-165", w: [500, 763] },
@@ -306,7 +296,7 @@ const PROJECTS_ALL = [
         <circle cx="270" cy="150" r="3" fill="currentColor"/>
       </svg>`,
     tags: ["Mechanical", "Sensors", "Embedded Control", "Automation"],
-    problem: "Design two automation systems — a gear-shifter assist and a fridge automation setup — that are reliable enough for everyday use.",
+    problem: "Design two automation systems, a gear-shifter assist and a fridge automation setup, that are reliable enough for everyday use.",
     approach: [
       "Specified the motion and sensing requirements for each subsystem.",
       "Built the mechanisms and wired the embedded control electronics.",
@@ -324,7 +314,7 @@ const PROJECTS_ALL = [
     title: "Autonomous Sumo Robot",
     tagline: "Competition Robotics",
     period: "2024",
-    summary: "Sumo-style autonomous robot: edge sensing, opponent detection, and drive logic tuned through test matches — 3rd in bracket.",
+    summary: "Sumo-style autonomous robot: edge sensing, opponent detection, and drive logic tuned through test matches. 3rd in bracket.",
     artBg: "#ECECEC",
     artFg: "#111111",
     coverImage: { src: "media/sumo/sumo-cover", w: [500, 1000, 1024] },
@@ -399,10 +389,10 @@ const PROJECTS_ALL = [
         <circle cx="240" cy="110" r="7" fill="currentColor" opacity="0.3" stroke="none"/>
       </svg>`,
     tags: ["Python", "MNE-Python", "NumPy", "SciPy", "Signal Processing", "EEG"],
-    problem: "Signal processing theory is abstract when taught with textbook examples. Using real EEG data makes the filtering decisions tangible — students can see exactly how their choices change actual brain signals.",
+    problem: "Signal processing theory is abstract when taught with textbook examples. Using real EEG data makes the filtering decisions tangible, because students can see exactly how their choices change actual brain signals.",
     approach: [
       "Sourced a real EEG dataset and built Python notebooks guiding students through preprocessing, filtering, and frequency-band extraction.",
-      "Covered each canonical band — delta, theta, alpha, beta, gamma — with bandpass filters, plotting raw versus filtered traces side by side.",
+      "Covered each canonical band (delta, theta, alpha, beta, gamma) with bandpass filters, plotting raw versus filtered traces side by side.",
       "Used MNE-Python to render topographic brain maps, connecting frequency-domain output to physical brain regions.",
       "Ran the workshop for 30+ IEEE McMaster students."
     ],
@@ -638,18 +628,6 @@ function sectionFiguresHtml(list) {
     </div>`;
 }
 
-function projectFactsHtml(p) {
-  if (!Array.isArray(p.facts) || !p.facts.length) return "";
-  return `
-    <dl class="project-facts">
-      ${p.facts.map(f => `
-        <div class="project-fact">
-          <dt>${f.label}</dt>
-          <dd>${f.value}</dd>
-        </div>`).join("")}
-    </dl>`;
-}
-
 function projectDetailHtml(p) {
   return `
     <header class="project-head">
@@ -658,19 +636,18 @@ function projectDetailHtml(p) {
       <p class="m-summary project-lead">${p.summary}</p>
     </header>
 
-    ${projectFactsHtml(p)}
     ${projectHeroHtml(p)}
-
-    <div class="modal-section">
-      <h4>The Problem</h4>
-      <p>${p.problem}</p>
-    </div>
 
     ${p.role ? `
     <div class="modal-section">
       <h4>My Role</h4>
       <p>${p.role}</p>
     </div>` : ""}
+
+    <div class="modal-section">
+      <h4>The Problem</h4>
+      <p>${p.problem}</p>
+    </div>
 
     <div class="modal-section">
       <h4>My Approach</h4>
@@ -723,7 +700,7 @@ function renderProjectDetailPage() {
   const p = PROJECTS_ALL.find(x => x.id === id);
 
   if (!p) {
-    document.title = "Project not found — Sina Forouzanfar";
+    document.title = "Project not found · Sina Forouzanfar";
     container.innerHTML = `
       <h1>Project not found</h1>
       <p class="m-summary">That project doesn't exist or may have moved.</p>
@@ -732,7 +709,7 @@ function renderProjectDetailPage() {
     return;
   }
 
-  document.title = `${p.title} — Sina Forouzanfar`;
+  document.title = `${p.title} · Sina Forouzanfar`;
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.setAttribute("content", p.summary);
 
