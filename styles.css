@@ -1833,6 +1833,16 @@ body[data-projects-page="detail"] .section { padding-top: 2.5rem; }
   color: var(--muted);
 }
 
+/* Two across, not three — several of these are terminal captures, and at a third
+   of the width the text in them is unreadable even as a thumbnail. */
+.section-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.7rem 1.4rem;
+  margin-top: 1.8rem;
+  max-width: 46em;
+}
+
 /* The hero sets its own frame, so it opts out of the tile treatment. */
 .project-hero img {
   aspect-ratio: auto;
@@ -1940,12 +1950,17 @@ body.gallery-lightbox-open {
    at 1180px wide the lines were running past 110 characters. */
 .modal-section {
   display: grid;
-  grid-template-columns: 170px minmax(0, 36em);
+  grid-template-columns: 170px minmax(0, 1fr);
   gap: 0 2.5rem;
-  margin-bottom: 2.6rem;
+  margin-bottom: 2.8rem;
 }
 
 .modal-section > :not(h4) { grid-column: 2; }
+
+/* Prose is capped for readability; figures get the wider track, so they read as
+   a deliberate break-out rather than being squeezed into the text column. */
+.modal-section > p,
+.modal-section > ul { max-width: 36em; }
 
 .modal-section h4 {
   grid-column: 1;

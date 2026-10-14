@@ -13,22 +13,24 @@ const PROJECTS_ALL = [
     coverImage: { src: "media/narcan-decpencer/screenshot-2026-05-08-144925", w: [500, 1000, 1170] },
     categories: ["embedded", "mechanical"],
     codeFile: "Progects_Imgs/Narcan Decpencer/3P04_Final_code.ino",
-    // Ordered as a narrative: how detection was tested, the pipeline running
-    // normally, the overdose case firing, then the delivery side.
-    gallery: [
-      { src: "media/narcan-decpencer/screenshot-2026-05-08-144841", w: [500, 1000, 1594],
-        caption: "Verification rig for the detection test — sensor held at a fixed distance, breathing paced by a metronome, peaks logged to CSV and scored against a confusion matrix." },
-      { src: "media/narcan-decpencer/screenshot-2026-05-09-092002", w: [500, 1000, 1263],
-        caption: "Startup and baseline. Once the SGP30 stabilises the detector counts exhalations and holds an estimated rate around 10–12 breaths per minute." },
-      { src: "media/narcan-decpencer/screenshot-2026-05-09-092030", w: [500, 1000, 1247],
-        caption: "The case the device exists for: estimated rate falls to 3.8 breaths/min, the 7 breaths/min threshold trips, and the servo fires the canister." },
-      { src: "media/narcan-decpencer/screenshot-2026-05-08-144925", w: [500, 1000, 1170],
-        caption: "3D-printed housing. It holds a commercial Narcan canister in a fixed position so the spring compresses it identically on every actuation." },
-      { src: "media/narcan-decpencer/screenshot-2026-05-08-144951", w: [500, 1000, 1547],
-        caption: "Deposition test setup — spray measured against a depth scale marked at the 3 cm and 6 cm nasal-mucosa target band." },
-      { src: "media/narcan-decpencer/screenshot-2026-05-08-145024", w: [500, 1000, 1333],
-        caption: "The delivery test running: nozzle at the 0 cm line, droplets left to settle on paper before the maximum depth is measured." }
-    ],
+    // Each figure sits with the claim it supports rather than in a pile at the end.
+    gallery: [],
+    figures: {
+      approach: [
+        { src: "media/narcan-decpencer/screenshot-2026-05-08-144841", w: [500, 1000, 1594],
+          caption: "Verification rig for the detection test — sensor at a fixed distance, breathing paced by a metronome, peaks logged to CSV and scored against a confusion matrix." },
+        { src: "media/narcan-decpencer/screenshot-2026-05-08-144951", w: [500, 1000, 1547],
+          caption: "Deposition test setup — spray measured against a depth scale marked at the 3 cm and 6 cm nasal-mucosa target band." }
+      ],
+      results: [
+        { src: "media/narcan-decpencer/screenshot-2026-05-09-092002", w: [500, 1000, 1263],
+          caption: "Startup and baseline: once the SGP30 stabilises, the detector counts exhalations and holds an estimated rate around 10–12 breaths per minute." },
+        { src: "media/narcan-decpencer/screenshot-2026-05-09-092030", w: [500, 1000, 1247],
+          caption: "The case the device exists for — estimated rate falls to 3.8 breaths/min, the 7 breaths/min threshold trips, and the servo fires the canister." },
+        { src: "media/narcan-decpencer/screenshot-2026-05-08-145024", w: [500, 1000, 1333],
+          caption: "The delivery test running: nozzle at the 0 cm line, droplets left to settle on paper before maximum depth is measured." }
+      ]
+    },
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
         <rect x="96" y="52" width="128" height="148" rx="14" fill="white"/>
@@ -616,6 +618,26 @@ function projectGalleryHtml(p) {
     </section>`;
 }
 
+/** Figures that belong to one section, rendered right under its text. An image
+ *  that proves a specific claim should sit next to that claim, not in a pile at
+ *  the end of the page. */
+function sectionFiguresHtml(list) {
+  if (!Array.isArray(list) || !list.length) return "";
+  return `
+    <div class="section-figures">
+      ${list.map(img => `
+        <figure class="project-figure">
+          <img src="${mediaPick(img, 1000)}"
+            srcset="${mediaSrcset(img)}"
+            sizes="(max-width: 860px) 92vw, 440px"
+            data-full="${mediaLargest(img)}"
+            alt="${escAttr(img.caption || "")}" class="project-gallery-img"
+            loading="lazy" decoding="async" title="Click to enlarge" />
+          ${img.caption ? `<figcaption>${img.caption}</figcaption>` : ""}
+        </figure>`).join("")}
+    </div>`;
+}
+
 function projectFactsHtml(p) {
   if (!Array.isArray(p.facts) || !p.facts.length) return "";
   return `
@@ -653,12 +675,14 @@ function projectDetailHtml(p) {
     <div class="modal-section">
       <h4>My Approach</h4>
       <ul>${p.approach.map(a => `<li>${a}</li>`).join("")}</ul>
+      ${sectionFiguresHtml(p.figures && p.figures.approach)}
     </div>
 
     ${p.results && p.results.length ? `
     <div class="modal-section">
       <h4>Verification &amp; Results</h4>
       <ul>${p.results.map(r => `<li>${r}</li>`).join("")}</ul>
+      ${sectionFiguresHtml(p.figures && p.figures.results)}
     </div>` : ""}
 
     <div class="modal-section">
