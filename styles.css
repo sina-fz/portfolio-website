@@ -1965,6 +1965,9 @@ body.gallery-lightbox-open {
   --measure: 38em;
   display: grid;
   grid-template-columns: 200px minmax(0, 1fr);
+  /* Baseline, not `start`: the label and the body text are different sizes, so
+     lining up their box tops still left the label floating above the first line. */
+  align-items: baseline;
   gap: 0 2.5rem;
   margin-bottom: 3rem;
 }
@@ -1987,10 +1990,28 @@ body.gallery-lightbox-open {
   margin: 0;
   font-weight: 700;
   line-height: 1.35;
-  align-self: start;
 }
 
-.modal-section p, .modal-section li { color: var(--ink-soft); }
+.modal-section > p { margin: 0; }
+
+/* Justified so every line reaches the same right edge, with the last line of a
+   block left ragged as normal. Hyphenation keeps the word spacing even instead
+   of opening rivers of white space at this measure. */
+.modal-section p,
+.modal-section li {
+  color: var(--ink-soft);
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+/* Justification needs a long line to work. The column holds ~61 characters at
+   640px but falls to ~46 by 500px, and spreading that few words to both margins
+   opens gaps wide enough to read as broken. Measured crossover is near 580px. */
+@media (max-width: 580px) {
+  .modal-section p,
+  .modal-section li { text-align: left; }
+}
 
 /* Hanging bullets: the marker sits out in the gutter so the bullet text lines
    up with paragraphs and figure edges instead of being indented past them. */
@@ -2069,7 +2090,7 @@ body.gallery-lightbox-open {
 /* Matted rather than full-bleed: these covers are a mix of portrait screenshots
    and photos, so the frame is sized to the image instead of stretching it. */
 .project-hero {
-  margin: 0 0 3rem;
+  margin: 0 0 4.2rem;
   padding: clamp(1rem, 2.5vw, 2rem);
   background: var(--bg-soft);
   border: 1px solid var(--line);
