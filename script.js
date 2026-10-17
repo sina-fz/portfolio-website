@@ -151,19 +151,26 @@ const PROJECTS_ALL = [
     summary: "Pacing firmware for a cardiac pulse generator on the NXP FRDM-K64F: Stateflow state machines for nine pacing modes, deterministic pulse timing, and a UART link for retuning parameters on a running device.",
     artBg: "#ECECEC",
     artFg: "#111111",
-    coverImage: { src: "media/pacemaker/screenshot-2026-05-08-142712", w: [500, 1000, 1052] },
-    gallery: [
-      { src: "media/pacemaker/screenshot-2026-05-08-142001", w: [500, 1000, 1600, 2144] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142323", w: [500, 1000, 1600, 2124] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142401", w: [500, 1000, 1600, 1633] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142408", w: [500, 1000, 1600, 1831] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142423", w: [500, 1000, 1600, 1790] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142712", w: [500, 1000, 1052] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142736", w: [500, 1000, 1030] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142804", w: [500, 1000, 1153] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142822", w: [500, 1000, 1163] },
-      { src: "media/pacemaker/screenshot-2026-05-08-142918", w: [500, 1000, 1395] }
-    ],
+    // Cover is the mode-control chart, not the DCM parameter page: the DCM was
+    // built by teammates, so leading with it credited the wrong work.
+    coverImage: { src: "media/pacemaker/screenshot-2026-05-08-142001", w: [500, 1000, 1600, 2144] },
+    gallery: [],
+    figures: {
+      approach: [
+        { src: "media/pacemaker/screenshot-2026-05-08-142323", w: [500, 1000, 1600, 2124],
+          caption: "The model end to end: hardware input mapping on the left, input processing in the middle, the pacing subroutines on the right, and output mapping back out to the board. Only the two blocks at either end know a pin number exists." },
+        { src: "media/pacemaker/screenshot-2026-05-08-142401", w: [500, 1000, 1600, 1633],
+          caption: "Input processing, the layer feeding the charts: pulse period determination, atrial and ventricular rate detection, the watchdog timer for missed beats, and the AV delay and duty cycle maths every mode depends on." },
+        { src: "media/pacemaker/screenshot-2026-05-08-142423", w: [500, 1000, 1600, 1790],
+          caption: "Hardware output mapping. Every control line the pacing logic produces lands here and nowhere else, which is what keeps FRDM-K64F pin assignments out of the state machines." },
+        { src: "media/pacemaker/screenshot-2026-05-08-142712", w: [500, 1000, 1052],
+          caption: "The DCM parameter table, built by teammates. Values set here travel to the board over the UART link I wrote, which is what lets pacing mode, rate limits and refractory periods change without a restart." }
+      ],
+      results: [
+        { src: "media/pacemaker/screenshot-2026-05-08-142918", w: [500, 1000, 1395],
+          caption: "AOO on the HeartView bench simulator with the lower rate limit at 50 ppm. Blue paced events fall at the same spacing as the red intrinsic beats, and the ventricular trace stays flat, as the mode requires." }
+      ]
+    },
     art: `
       <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
         <path d="M0 130 L70 130 L85 130 L100 90 L115 170 L130 60 L145 180 L160 130 L320 130" />
@@ -189,7 +196,10 @@ const PROJECTS_ALL = [
       "The hardware-hiding split paid for itself: extending to rate-adaptive pacing touched the control charts and the accelerometer input, while the pin mapping and the DCM interface stayed where they were.",
       "Closest I have worked to how regulated embedded software is genuinely built: requirements before code, modules defined by their secrets, and each mode accepted or rejected against a number."
     ],
-    links: [{ label: "GitHub", url: "https://github.com/sina-fz" }],
+    links: [
+      { label: "GitHub", url: "https://github.com/sina-fz" },
+      { label: "Full write-up (.docx)", url: "Progects_Imgs/Pacemaker/3K04 Deliverable 2 Write Up.docx" }
+    ],
     categories: ["embedded", "software"]
   },
   {
