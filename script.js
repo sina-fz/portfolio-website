@@ -910,6 +910,13 @@ const revealTargets = document.querySelectorAll(
 );
 revealTargets.forEach(el => el.classList.add("reveal"));
 
+/* threshold must stay at 0. A percentage threshold is unsatisfiable for anything
+   taller than the viewport: a project page section runs ~7300px on a phone, so
+   12% of it is ~876px of visible area that a 844px screen can never provide, and
+   the whole page sat at opacity 0 forever. The negative bottom margin is what
+   delays the reveal instead. */
+const REVEAL_OPTS = { threshold: 0, rootMargin: "0px 0px -60px 0px" };
+
 const io = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -917,7 +924,7 @@ const io = new IntersectionObserver(entries => {
       io.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+}, REVEAL_OPTS);
 
 revealTargets.forEach(el => io.observe(el));
 
@@ -931,7 +938,7 @@ function observeWorkCards() {
           workCardIo.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    }, REVEAL_OPTS);
   }
   document.querySelectorAll("#workList .work-card.reveal").forEach(el => {
     workCardIo.observe(el);
