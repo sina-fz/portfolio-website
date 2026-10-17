@@ -42,7 +42,7 @@ const PROJECTS_ALL = [
       </svg>`,
     tags: ["Arduino", "Embedded C/C++", "Sensor Signal Processing", "Servo Actuation", "3D Printing", "Design Verification"],
     problem: "Naloxone reverses an opioid overdose and is free at most Ontario pharmacies, but it cannot be self-administered once you are unconscious, which is precisely when it is needed. Over 53,000 overdose deaths were recorded in Canada between 2016 and 2025. The question we took on was whether a wearable could close that gap on its own: detect respiratory depression, deliver the dose, and call for help, while staying under a $30 build cost and inside the footprint of a standard naloxone kit.",
-    role: "On a four-person team I owned the part of the device that decides and acts. I wrote the sensing firmware and the breathing-rate algorithm that judges whether someone is overdosing, and I designed the servo and spring mechanism that delivers the dose. I also wrote and ran both verification tests, which is where the hardware limits surfaced. Risk and economic analysis were covered by my teammates.",
+    role: "In this team I was working on the part of the device that decides and acts. I wrote the sensing firmware and the breathing-rate algorithm that judges whether someone is overdosing, and I designed the servo and spring mechanism that delivers the dose. I also wrote and ran both verification tests, which is where the hardware limits surfaced. Risk and economic analysis sat elsewhere in the team.",
     approach: [
       "Derived breathing rate from exhalation peaks in an SGP30 VOC signal instead of adding a dedicated respiration sensor, which kept the bill of materials inside the $30 target.",
       "Wrote the detection firmware: peak picking on the live signal, breaths per minute over a rolling window, and a threshold classifier that reads anything under 7 breaths per minute as an overdose.",
@@ -152,7 +152,7 @@ const PROJECTS_ALL = [
     artBg: "#ECECEC",
     artFg: "#111111",
     // Cover is the mode-control chart, not the DCM parameter page: the DCM was
-    // built by teammates, so leading with it credited the wrong work.
+    // built elsewhere in the team, so leading with it credited the wrong work.
     coverImage: { src: "media/pacemaker/screenshot-2026-05-08-142001", w: [500, 1000, 1600, 2144] },
     gallery: [],
     figures: {
@@ -164,7 +164,7 @@ const PROJECTS_ALL = [
         { src: "media/pacemaker/screenshot-2026-05-08-142423", w: [500, 1000, 1600, 1790],
           caption: "Hardware output mapping. Every control line the pacing logic produces lands here and nowhere else, which is what keeps FRDM-K64F pin assignments out of the state machines." },
         { src: "media/pacemaker/screenshot-2026-05-08-142712", w: [500, 1000, 1052],
-          caption: "The DCM parameter table, built by teammates. Values set here travel to the board over the UART link I wrote, which is what lets pacing mode, rate limits and refractory periods change without a restart." }
+          caption: "The DCM parameter table at the other end of the link. Values set here travel to the board over the UART interface I wrote, which is what lets pacing mode, rate limits and refractory periods change without a restart." }
       ],
       results: [
         { src: "media/pacemaker/screenshot-2026-05-08-142918", w: [500, 1000, 1395],
@@ -178,7 +178,7 @@ const PROJECTS_ALL = [
       </svg>`,
     tags: ["Simulink / Stateflow", "NXP FRDM-K64F", "Model-Based Design", "UART", "Real-Time Control", "Medical Devices"],
     problem: "A pacemaker is a hard real-time device where a late pulse is a safety event, and where a clinician has to be able to retune pacing parameters on a device that is already running. The brief mirrored how regulated medical software is actually produced: requirements written and traced first, modules defined by what they hide rather than what they do, and every pacing mode signed off against a numeric pass band instead of looking right on a scope.",
-    role: "On a six-person team I owned the embedded side end to end: the Stateflow pacing charts, the input-processing layer that feeds them, the hardware I/O mapping on the K64F, and the UART link that carries parameters between the board and the DCM. My teammates built the DCM front end; everything running on the device, and the serial interface it speaks, was mine.",
+    role: "In this team I was working on the embedded side: the Stateflow pacing charts, the input-processing layer that feeds them, the hardware I/O mapping on the K64F, and the UART link that carries parameters between the board and the DCM. The DCM front end was handled elsewhere in the team, so my side was what runs on the device and the serial interface it speaks.",
     approach: [
       "Modelled each pacing mode as a Stateflow chart (charge, discharge, refractory) and generated embedded code from the model, so the pacing logic could be reviewed as a state diagram before it ever ran on hardware.",
       "Built the layer underneath: atrial and ventricular rate detection, pulse-period measurement against the refractory window, a watchdog timer for missed beats, and the AV-delay and duty-cycle maths each mode depends on.",
@@ -196,10 +196,7 @@ const PROJECTS_ALL = [
       "The hardware-hiding split paid for itself: extending to rate-adaptive pacing touched the control charts and the accelerometer input, while the pin mapping and the DCM interface stayed where they were.",
       "Closest I have worked to how regulated embedded software is genuinely built: requirements before code, modules defined by their secrets, and each mode accepted or rejected against a number."
     ],
-    links: [
-      { label: "GitHub", url: "https://github.com/sina-fz" },
-      { label: "Full write-up (.docx)", url: "Progects_Imgs/Pacemaker/3K04 Deliverable 2 Write Up.docx" }
-    ],
+    links: [{ label: "GitHub", url: "https://github.com/sina-fz" }],
     categories: ["embedded", "software"]
   },
   {
